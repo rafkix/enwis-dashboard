@@ -39,7 +39,7 @@ export default function TelegramLoginWidget() {
         script.src = "https://telegram.org/js/telegram-widget.js?22";
         script.async = true;
 
-        script.setAttribute("data-telegram-login", "walleuzbot");
+        script.setAttribute("data-telegram-login", "enwis_bot");
         script.setAttribute("data-size", "large");
         script.setAttribute("data-radius", "10");
         script.setAttribute("data-request-access", "write");
