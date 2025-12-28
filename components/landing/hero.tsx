@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react"
-import { Play, Star, Zap, PenLine, MousePointer2, Link } from "lucide-react"
+import { Play, Star, Zap, PenLine, MousePointer2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -54,13 +54,16 @@ export function Hero() {
 
                     <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 pt-4">
                         <Button className="h-16 px-10 bg-slate-900 hover:bg-slate-800 text-white text-lg rounded-none border-b-4 border-r-4 border-slate-700 active:translate-y-1 transition-all">
-                            <Link href="https://cefr.enwis.uz" target="_blank" rel="noopener noreferrer">
-                                Start Mock Test
-                                </Link>
+                            <Play className="mr-2 fill-current" size={20} /> <a
+  href="https://cefr.enwis.uz"
+  className="px-4 py-2 text-[13px] font-black text-slate-600 hover:text-slate-900 uppercase tracking-tight transition-all"
+>
+  Start Mock Test
+</a>
 
                         </Button>
                         <div className="relative inline-block group">
-                            <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-green-300 transition-all font-mono">
+                            <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-slate-50 transition-all font-mono">
                                 Try Free Demo
                             </Button>
                             {/* Qo'lda chizilgan strelka */}
