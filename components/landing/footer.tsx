@@ -26,7 +26,7 @@ export function Footer() {
                             className="relative inline-block p-2 bg-white border-2 border-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                         >
                             <img
-                                src="/enwis.png"
+                                src="https://image2url.com/images/1764944410839-0e0e3e25-d678-4801-9f49-011a4d8f6de0.png"
                                 alt="ENWIS"
                                 className="w-16 h-16 object-contain"
                             />
