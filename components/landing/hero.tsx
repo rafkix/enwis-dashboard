@@ -54,13 +54,10 @@ export function Hero() {
 
                     <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 pt-4">
                         <Button className="h-16 px-10 bg-slate-900 hover:bg-slate-800 text-white text-lg rounded-none border-b-4 border-r-4 border-slate-700 active:translate-y-1 transition-all">
-                            <Link key="cefr.enwis.uz"
-                                    href="cefr.enwis.uz"
-                                    className="px-4 py-2 text-[13px] font-black text-slate-600 hover:text-slate-900 uppercase tracking-tight transition-all"
-                                    
-                                >
-                                    Start Mock Test
-                            </Link>
+                            <Link href="https://cefr.enwis.uz" target="_blank" rel="noopener noreferrer">
+                                Start Mock Test
+                                </Link>
+
                         </Button>
                         <div className="relative inline-block group">
                             <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-green-300 transition-all font-mono">
