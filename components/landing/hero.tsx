@@ -1,201 +1,136 @@
 'use client'
 
-import { useEffect, useRef } from "react"
-import { Play, BadgeCheck, Star, Crown } from "lucide-react"
+import { useEffect } from "react"
+import { Play, Star, Zap, PenLine, MousePointer2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import { motion } from "framer-motion"
 
 export function Hero() {
-    const cardRef = useRef<HTMLDivElement | null>(null)
-    const glowRef = useRef<HTMLDivElement | null>(null)
-    const imgRef = useRef<HTMLImageElement | null>(null)
-
-    /* INIT AOS */
     useEffect(() => {
-        AOS.init({ duration: 600, once: true })
-    }, [])
-
-    /* ENABLE 3D ONLY ON DESKTOP */
-    useEffect(() => {
-        if (window.innerWidth < 1024) return // ❗ tablet & phone → stop
-
-        const card = cardRef.current
-        const glow = glowRef.current
-        const img = imgRef.current
-        if (!card || !glow || !img) return
-
-        const width = card.clientWidth
-        const height = card.clientHeight
-        const MAX_ROTATE = 18
-        const DEPTH = 70
-
-        const handleMove = (e: MouseEvent) => {
-            const rect = card.getBoundingClientRect()
-            const x = e.clientX - rect.left
-            const y = e.clientY - rect.top
-
-            const rotateY = ((x - width / 2) / (width / 2)) * MAX_ROTATE
-            const rotateX = ((y - height / 2) / (height / 2)) * -MAX_ROTATE
-
-            card.style.transform = `
-                perspective(1200px)
-                rotateX(${rotateX}deg)
-                rotateY(${rotateY}deg)
-                scale3d(1.08, 1.08, 1.08)
-            `
-
-            img.style.transform = `translateZ(${DEPTH}px) scale(1.08)`
-
-            const glowX = (x / width) * 100
-            const glowY = (y / height) * 100
-
-            glow.style.opacity = "0.25"
-            glow.style.transform = `translate(-50%, -50%) translate(${glowX}%, ${glowY}%)`
-
-            document.querySelectorAll(".float-badge").forEach((el) => {
-                (el as HTMLElement).style.transform = `
-                    translateZ(65px)
-                    translate(${(x - width / 2) * 0.04}px, ${(y - height / 2) * 0.04}px)
-                `
-            })
-        }
-
-        const reset = () => {
-            card.style.transform = `
-                perspective(1200px)
-                rotateX(0deg)
-                rotateY(0deg)
-                scale3d(1, 1, 1)
-            `
-            img.style.transform = "translateZ(0px) scale(1)"
-            glow.style.opacity = "0"
-
-            document.querySelectorAll(".float-badge").forEach((el) => {
-                ;(el as HTMLElement).style.transform = `translateZ(0px)`
-            })
-        }
-
-        card.addEventListener("mousemove", handleMove)
-        card.addEventListener("mouseleave", reset)
-
-        return () => {
-            card.removeEventListener("mousemove", handleMove)
-            card.removeEventListener("mouseleave", reset)
-        }
+        AOS.init({ duration: 800, once: true })
     }, [])
 
     return (
-        <section className="pt-28 pb-20 lg:pt-36 bg-linear-to-b from-white to-[#F7F8FA]" id="home">
+        <section className="relative pt-26 pb-20 lg:pt-36 bg-[#fffefc] overflow-hidden" id="home">
+            
+            {/* DAFTAR FON EFFEKTI */}
+            <div className="absolute inset-0 z-0 opacity-[0.1]" 
+                 style={{ backgroundImage: `linear-gradient(#94a3b8 1px, transparent 1px)`, backgroundSize: '100% 40px' }} 
+            />
+            <div className="absolute left-[5%] md:left-[8%] top-0 bottom-0 w-[2px] bg-red-200/40 z-0" />
 
-            {/* MAIN GRID */}
-            <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+            <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center relative z-10">
 
-                {/* LEFT TEXT */}
-                <div className="space-y-6 text-center lg:text-left">
-                    <h1 className="text-3xl md:text-4xl lg:text-6xl xl:text-6xl font-bold leading-tight text-[#1F2937] flex flex-wrap justify-center lg:justify-start gap-2">
-                        ENWIS helps users learn vocabulary efficiently through smart AI guidance
+                {/* CHAP TOMON: MATNLAR */}
+                <div className="space-y-8 text-center lg:text-left">
+                    <motion.div 
+                        initial={{ rotate: -2, x: -10 }}
+                        animate={{ rotate: 0, x: 0 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-sm bg-yellow-100 border border-yellow-200 text-yellow-800 text-xs font-bold tracking-widest uppercase shadow-sm"
+                    >
+                        <Zap size={14} fill="currentColor" />
+                        <span>Lesson #01: AI Mastery</span>
+                    </motion.div>
+
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[1.1] text-slate-800 tracking-tight">
+                        Master Vocabulary <br />
+                        <span className="relative inline-block mt-2">
+                            <span className="relative z-10 italic font-serif text-blue-600">with AI.</span>
+                            {/* Marker bilan bo'yalgan fon */}
+                            <motion.div 
+                                initial={{ width: 0 }}
+                                animate={{ width: '110%' }}
+                                transition={{ delay: 0.5, duration: 0.8 }}
+                                className="absolute inset-0 -left-[5%] bg-blue-100/60 -skew-x-12 h-[80%] top-[15%] -z-10" 
+                            />
+                        </span>
                     </h1>
 
-                    <p className="text-base md:text-lg lg:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        ENWIS helps learners build real exam confidence by offering smart tools, interactive practice, and authentic CEFR-IELTS simulations.
+                    <p className="text-lg md:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed italic font-medium">
+                        "ENWIS helps learners build real exam confidence. We use smart tools and <span className="border-b-2 border-red-300">CEFR-IELTS</span> simulations."
                     </p>
 
-                    <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                        <Button className="bg-destructive text-white px-6 py-4 text-lg rounded-full shadow-lg hover:bg-accent transition">
-                            <Play className="mr-2" /> Start Mock Test
+                    <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 pt-4">
+                        <Button className="h-16 px-10 bg-slate-900 hover:bg-slate-800 text-white text-lg rounded-none border-b-4 border-r-4 border-slate-700 active:translate-y-1 transition-all">
+                            <Play className="mr-2 fill-current" size={20} /> Start Mock Test
                         </Button>
-                        <Button className="bg-destructive text-white px-6 py-4 text-lg rounded-full shadow-lg hover:bg-accent transition">
-                            Try Free Demo
-                        </Button>
+                        <div className="relative inline-block group">
+                            <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-slate-50 transition-all font-mono">
+                                Try Free Demo
+                            </Button>
+                            {/* Qo'lda chizilgan strelka */}
+                            <div className="absolute -right-12 -bottom-8 text-blue-400 hidden lg:block -rotate-12">
+                                <MousePointer2 size={32} />
+                                <span className="text-[10px] font-bold uppercase italic">Click here!</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* RIGHT 3D CARD – DESKTOP ONLY */}
-                <div className="hidden lg:flex justify-end">
-                    <div className="flex flex-col items-center">
-                        <div
-                            ref={cardRef}
-                            className="relative rounded-2xl overflow-hidden group shadow-2xl"
-                            style={{
-                                width: "650px",
-                                height: "480px",
-                                transformStyle: "preserve-3d",
-                                transition: "transform 450ms cubic-bezier(.03,.98,.52,.99)"
-                            }}
-                        >
-                            {/* GLOW */}
-                            <div
-                                ref={glowRef}
-                                className="absolute w-48 h-48 bg-red-500/30 blur-2xl rounded-full pointer-events-none"
-                                style={{ opacity: 0, top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
-                            />
+                {/* O'NG TOMON: "DRAFT" USLUBIDAGI RASYM */}
+                <div className="relative flex justify-center lg:justify-end group">
+                    {/* Rasm ramkasi - xuddi daftarga yopishtirilgan rasmdek */}
+                    <div className="relative p-4 bg-white border-2 border-slate-200 shadow-[20px_20px_0px_0px_rgba(226,232,240,1)] rotate-3 group-hover:rotate-0 transition-transform duration-500 max-w-[500px]">
+                        
+                        {/* Tepasidagi "Skotch" (Tape) */}
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/60 border border-slate-100 backdrop-blur-sm -rotate-2 z-20 shadow-sm" />
 
-                            {/* IMAGE */}
-                            <img
-                                ref={imgRef}
-                                src="/person.png"
-                                className="w-full h-full object-cover rounded-2xl select-none"
-                                style={{ transition: "transform 0.5s ease", transformStyle: "preserve-3d" }}
-                            />
+                        <img
+                            src="/person.png"
+                            className="w-full grayscale hover:grayscale-0 transition-all duration-700"
+                            alt="Student Notes"
+                        />
 
-                            {/* BADGES */}
-                            <div className="absolute top-6 left-6 float-badge bg-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 font-semibold">
-                                <BadgeCheck className="text-green-600 w-5 h-5" /> IELTS 7.5
-                            </div>
+                        {/* Qo'lda chizilgan "Eslatmalar" */}
+                        <div className="absolute -left-10 top-1/4 bg-lime-100 p-3 border-l-4 border-lime-500 shadow-md -rotate-6 hidden md:block">
+                            <p className="text-[10px] font-bold text-lime-800 uppercase italic">Vocabulary Focus ✨</p>
+                        </div>
 
-                            <div className="absolute top-6 right-6 float-badge bg-blue-600 text-white px-4 py-2 rounded-xl shadow-lg font-semibold">
-                                CEFR C1
-                            </div>
+                        <div className="absolute -right-8 bottom-1/4 bg-pink-100 p-3 border-l-4 border-pink-500 shadow-md rotate-6 hidden md:block">
+                            <p className="text-[10px] font-bold text-pink-800 uppercase italic">IELTS Ready!</p>
+                        </div>
+                    </div>
 
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 float-badge bg-yellow-500 text-black px-6 py-2 rounded-xl shadow-lg flex items-center gap-2 font-bold">
-                                <Crown className="w-5 h-5" /> Advanced English
-                            </div>
+                    {/* Fon uchun Scribble (Aylana) */}
+                    <div className="absolute -z-10 top-0 right-0 text-slate-100">
+                        <svg width="400" height="400" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="10 5" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
-                            <div className="absolute bottom-6 right-6 float-badge bg-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-1">
-                                {[...Array(4)].map((_, i) => (
-                                    <Star key={i} className="text-yellow-500 w-5 h-5" />
-                                ))}
-                            </div>
-
-                            {/* OVERLAY */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center text-white text-center">
-                                <div className="px-6">
-                                    <h3 className="text-2xl font-semibold mb-2">ENWIS learning app</h3>
-                                    <p className="text-sm opacity-90">Realistic environment for IELTS preparation</p>
+            {/* STATS SECTION - MINIMALIST "HAND-DRAWN" STYLE */}
+            <div className="max-w-7xl mx-auto px-6 mt-32 relative z-10">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-slate-200 border border-slate-200">
+                    {[
+                        { num: "11+", text: "Years Exp.", note: "Verified" },
+                        { num: "100K+", text: "Active Students", note: "Global" },
+                        { num: "14", text: "Branches", note: "Growing" },
+                        { num: "500+", text: "Mentors", note: "Certified" },
+                    ].map((item, i) => (
+                        <div key={i} className="bg-white p-10 group hover:bg-slate-50 transition-colors relative overflow-hidden">
+                            <div className="relative z-10">
+                                <p className="text-4xl font-black text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                                    {item.num}
+                                </p>
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{item.text}</p>
+                                {/* Tagiga chizilgan "scribble" */}
+                                <div className="mt-2 text-[10px] font-mono text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    // {item.note}
                                 </div>
                             </div>
                         </div>
-
-                        <p className="mt-4 text-gray-700 text-base font-medium">
-                            ENWIS Prep — Premium Study Environment
-                        </p>
-                    </div>
+                    ))}
                 </div>
             </div>
 
-            {/* STAT CARDS */}
-            <div
-                data-aos="fade-up"
-                className="max-w-7xl mx-auto px-6 xl:px-4 py-16 grid grid-cols-2 md:grid-cols-4 gap-4"
-            >
-                {[
-                    { num: "11+", text: "years of experience", color: "bg-blue-500" },
-                    { num: "100,000+", text: "students learned English", color: "bg-red-500" },
-                    { num: "14", text: "branches across Uzbekistan", color: "bg-orange-500" },
-                    { num: "500+", text: "employees in Cambridge", color: "bg-green-500" },
-                ].map((item, i) => (
-                    <div
-                        key={i}
-                        className="relative p-6 rounded-2xl bg-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
-                    >
-                        <div className={`absolute w-16 h-16 rounded-full opacity-0 ${item.color} blur-2xl -top-3 -right-3 transition-all duration-500`} />
-                        <p className="text-3xl md:text-4xl font-bold text-blue-700">{item.num}</p>
-                        <p className="text-gray-600 mt-1 text-sm md:text-base">{item.text}</p>
-                    </div>
-                ))}
+            {/* Chetki bezak */}
+            <div className="absolute bottom-10 left-10 text-slate-300 hidden lg:block italic font-serif text-sm">
+                <PenLine size={20} className="inline mr-2" /> Study hard, dream big.
             </div>
-
         </section>
     )
 }

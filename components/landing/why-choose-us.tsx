@@ -1,135 +1,140 @@
 'use client'
 
-import { BookOpen, CheckCircle, Trophy, Coffee } from 'lucide-react'
+import { BookOpen, CheckCircle, Trophy, Coffee, Star, ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const reasons = [
     {
         icon: BookOpen,
         title: "Free teacher support",
-        description: "Assistant teachers available 24/7 for student help.",
-        color: "bg-[#b0fc40]" // Lunix
+        description: "Assistant teachers available 24/7 for student help. Don't hesitate to ask!",
+        marker: "bg-[#b0fc40]/40", 
+        sketch: "border-b-2 border-dashed border-lime-500",
+        note: "Always online ✨"
     },
     {
         icon: CheckCircle,
         title: "Test Center",
-        description: "Separate test center for MOCK and real IELTS exams. Additional practice biologies, chemistry, and physics tests.",
-        color: "bg-[#2ec500]" // Verdix
+        description: "Separate test center for MOCK and real IELTS exams. Special biology & chemistry tests.",
+        marker: "bg-[#2ec500]/30",
+        sketch: "ring-2 ring-green-400 ring-offset-4 rounded-[20%_80%_20%_80%]",
+        note: "IELTS 8.5 Zone"
     },
     {
         icon: Trophy,
         title: "Free Events",
-        description: "Student battles, quizzes, and chess tournaments with prizes.",
-        color: "bg-[#2b85ff]" // Skylen
+        description: "Student battles, quizzes, and chess tournaments with prizes. Join the fun!",
+        marker: "bg-[#2b85ff]/30",
+        sketch: "border-2 border-blue-400 rounded-lg skew-x-3",
+        note: "Win Prizes! 🏆"
     },
     {
         icon: Coffee,
-        title: "Distance Learning Zones",
-        description: "Comfortable zones for remote learning with refreshments.",
-        color: "bg-[#0c3033]" // Obscure
+        title: "Study Zones",
+        description: "Comfortable zones for remote learning with refreshments. Best coffee in town.",
+        marker: "bg-[#ff7eb9]/30",
+        sketch: "border-b-4 border-double border-pink-400",
+        note: "Coffee is free ☕"
     },
 ]
 
 export function WhyChooseUs() {
     return (
-        <section className="py-30  bg-foreground" id="why-choose-us">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 bg-linear-to-br from-background/60 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Section Header */}
-            <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-                Why are people choosing us?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                ENWIS has been teaching languages worldwide with AI-powered personalization and proven methodology.
-            </p>
-            </div>
+        <section className="py-20 bg-[#fdfdfb] relative overflow-hidden font-sans" id="why-choose-us">
+            
+            {/* PAPER BACKGROUND EFFECT */}
+            {/* Horizontal lines */}
+            <div className="absolute inset-0 z-0 opacity-[0.15]" 
+                 style={{ backgroundImage: `linear-gradient(#94a3b8 1px, transparent 1px)`, backgroundSize: '100% 40px' }} 
+            />
+            {/* Vertical margin line (Daftar hoshiyasi) */}
+            <div className="absolute left-[5%] md:left-[8%] top-0 bottom-0 w-[2px] bg-red-200/40 z-0" />
 
-            {/* Desktop Layout */}
-            <div className="hidden md:grid md:grid-cols-3 gap-6 items-start max-w-5xl mx-auto">
-
-            {/* Left Cards */}
-            <div className="space-y-6">
-                {reasons.slice(0, 2).map((reason, index) => {
-                const Icon = reason.icon
-                return (
-                    <div
-                    key={index}
-                    className="group rounded-2xl p-6 glass border border-white/10 backdrop-blur-md hover:shadow-xl transition shadow-md"
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
+                
+                {/* Header Section */}
+                <div className="mb-24 relative inline-block">
+                    <motion.span 
+                        initial={{ rotate: -5, scale: 0.9 }}
+                        whileInView={{ rotate: -12, scale: 1 }}
+                        className="absolute -top-8 -left-8 bg-blue-600 text-white text-[10px] px-2 py-1 font-bold rounded-sm shadow-sm"
                     >
-                    <div className={`w-12 h-12 ${reason.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
-                        <Icon size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{reason.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                        {reason.description}
-                    </p>
-                    </div>
-                )
-                })}
-            </div>
-
-            {/* Center Teacher Image */}
-            <div className="flex flex-col items-center text-center rounded-3xl p-8 glass border border-white/10 backdrop-blur-md shadow-lg">
-                <div className="relative overflow-hidden rounded-2xl">
-                <img
-                    src="https://image2url.com/images/1764945800461-3f2e306f-9f7f-45d8-851b-09b6e73b1d52.png"
-                    alt="Experienced English Test Zone"
-                    className="object-cover w-full h-full"
-                />
+                        TOP SECRET? NO!
+                    </motion.span>
+                    <h2 className="text-4xl md:text-6xl font-black text-slate-800 tracking-tight">
+                        Why choose <span className="relative">
+                            ENWIS
+                            <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 100 8" preserveAspectRatio="none">
+                                <path d="M0 5C30 2 70 2 100 5" stroke="#2b85ff" strokeWidth="4" strokeLinecap="round" />
+                            </svg>
+                        </span>?
+                    </h2>
                 </div>
-                <h3 className="mt-6 text-xl font-bold text-foreground">Experienced Test Blocks</h3>
-                <p className="text-muted-foreground text-sm max-w-sm mt-1">
-                Learn from certified instructors with modern teaching methods and AI assistance.
-                </p>
-            </div>
 
-            {/* Right Cards */}
-            <div className="space-y-6">
-                {reasons.slice(2, 4).map((reason, index) => {
-                const Icon = reason.icon
-                return (
-                    <div
-                    key={index}
-                    className="group rounded-2xl p-6 glass border border-white/10 backdrop-blur-md hover:shadow-xl transition shadow-md"
-                    >
-                    <div className={`w-12 h-12 ${reason.color} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
-                        <Icon size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{reason.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                        {reason.description}
-                    </p>
-                    </div>
-                )
-                })}
-            </div>
-            </div>
+                {/* Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+                    {reasons.map((item, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            className="relative group"
+                        >
+                            {/* Marker Highlight behind Title */}
+                            <div className="relative inline-block mb-4">
+                                <div className={`absolute -inset-1 sm:-inset-2 ${item.marker} -skew-x-12 transform group-hover:scale-110 transition-transform duration-300 rounded-sm`} />
+                                <h3 className="relative text-2xl font-black text-slate-900 flex items-center gap-3">
+                                    <span className="text-slate-400 font-mono text-sm">0{i+1}.</span>
+                                    {item.title}
+                                </h3>
+                            </div>
 
-            {/* Mobile Layout */}
-            <div className="md:hidden space-y-4 mt-8">
-            {reasons.map((reason, index) => {
-                const Icon = reason.icon
-                return (
-                <div
-                    key={index}
-                    className="rounded-2xl p-5 bg-white/70 border border-gray-200 shadow-md backdrop-blur"
-                >
-                    <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl ${reason.color} flex items-center justify-center shadow`}>
-                        <Icon size={26} className="text-white" />
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">{reason.title}</h3>
-                        <p className="text-gray-700 text-sm leading-relaxed">{reason.description}</p>
-                    </div>
+                            {/* Description with Sketch styles */}
+                            <div className={`p-4 transition-all duration-300 ${item.sketch} hover:bg-white/50 backdrop-blur-[1px]`}>
+                                <p className="text-slate-600 text-lg leading-relaxed font-medium italic">
+                                    {item.description}
+                                </p>
+                            </div>
+
+                            {/* Hand-written Side Note */}
+                            <div className="mt-4 flex items-center gap-2">
+                                <Star size={14} className="text-yellow-500 fill-yellow-500" />
+                                <span className="font-mono text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
+                                    Note: {item.note}
+                                </span>
+                            </div>
+
+                            {/* Random Scribbles (Faqat ayrimlarida chiqadi) */}
+                            {i === 0 && (
+                                <div className="absolute -right-8 top-0 text-blue-300/40 -rotate-12 hidden lg:block">
+                                    <ArrowRight size={60} strokeWidth={1} />
+                                </div>
+                            )}
+                        </motion.div>
+                    ))}
+                </div>
+
+                {/* Bottom Scribble */}
+                <div className="mt-24 text-center">
+                    <div className="inline-block relative p-4 border-2 border-slate-200 border-dashed rounded-xl">
+                        <p className="font-mono text-sm text-slate-400 uppercase tracking-widest">
+                            End of notes — See you in class!
+                        </p>
+                        <div className="absolute -bottom-3 -right-3 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center border border-red-200 text-red-500 font-bold text-xs rotate-12">
+                            OK!
+                        </div>
                     </div>
                 </div>
-                )
-            })}
+
             </div>
 
-        </div>
+            {/* Background Scribble SVGs */}
+            <div className="absolute top-[20%] right-[5%] opacity-[0.05] pointer-events-none">
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                    <path d="M20,50 Q80,20 150,80 T180,150" fill="none" stroke="black" strokeWidth="2" />
+                    <circle cx="150" cy="50" r="20" fill="none" stroke="black" strokeWidth="2" />
+                </svg>
+            </div>
         </section>
     )
 }

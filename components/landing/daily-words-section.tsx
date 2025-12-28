@@ -1,389 +1,166 @@
-"use client";
+'use client'
 
-import React, { JSX, useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useState } from "react"
+import { Volume2, X, Highlighter, PencilLine, Hash } from 'lucide-react'
+import { motion, AnimatePresence } from "framer-motion"
 
-/* Minimal local VolumeUpIcon */
-const VolumeUpIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M11 5L6 9H2v6h4l5 4V5z" />
-    <path d="M15.54 8.46a5 5 0 010 7.07 1 1 0 0 0 1.41-1.41 3 3 0 000-4.24 1 1 0 0 0-1.41-1.42z" />
-    <path d="M17.66 6.34a8 8 0 010 11.32 1 1 0 0 0 1.41-1.41 6 6 0 000-8.5 1 1 0 0 0-1.41-1.41z" />
-  </svg>
-);
-
-
-/* Types */
-type BaseWord = {
-  word: string;
-  uz_translation: string;
-  level: string;
-  bgClass: string;
-  borderClass: string;
-};
-
-type WordDetails = {
-  word: string;
-  definitions: { definition: string; example?: string }[];
-  phonetic?: string;
-  audio?: string;
-  part?: string;
-  synonyms: string[];
-  antonyms: string[];
-  origin?: string;
-};
-
-/* ✅ DEFAULT WORDS (API bo‘lmasa ishlaydi) */
-const BASE_WORDS: BaseWord[] = [
-  { word: "Meticulous", uz_translation: "Juda ehtiyotkor, juda aniqlik bilan ishlovchi", level: "C1", bgClass: "bg-purple-400", borderClass: "border-purple-500" },
-  { word: "Inevitable", uz_translation: "Muqarrar, oldini olib bo‘lmaydigan", level: "B2", bgClass: "bg-blue-400", borderClass: "border-blue-500" },
-  { word: "Comprehensive", uz_translation: "Har tomonlama to‘liq qamrab oluvchi", level: "C1", bgClass: "bg-emerald-400", borderClass: "border-emerald-500" },
-  { word: "Transform", uz_translation: "Tubdan o‘zgartirmoq", level: "B1", bgClass: "bg-yellow-400", borderClass: "border-yellow-500" },
-  { word: "Innovative", uz_translation: "Yangi texnologiya yoki usulni qo‘llovchi", level: "C1", bgClass: "bg-pink-400", borderClass: "border-pink-500" },
+const BASE_WORDS = [
+  { word: "Meticulous", uz_translation: "Juda ehtiyotkor", level: "C1", color: "#dcfce7", rotate: -2 },
+  { word: "Inevitable", uz_translation: "Muqarrar", level: "B2", color: "#dbeafe", rotate: 2 },
+  { word: "Comprehensive", uz_translation: "Har tomonlama", level: "C1", color: "#f3e8ff", rotate: -1 },
+  { word: "Transform", uz_translation: "O'zgartirmoq", level: "B1", color: "#fef9c3", rotate: 3 },
+  { word: "Innovative", uz_translation: "Yangilikchi", level: "C1", color: "#ffe4e6", rotate: -3 },
 ];
 
-/* ✅ LEVEL COLORS */
-const LEVEL_STYLES: Record<string, { bgClass: string; borderClass: string }> = {
-  A1: { bgClass: "bg-gray-400", borderClass: "border-gray-500" },
-  A2: { bgClass: "bg-green-400", borderClass: "border-green-500" },
-  B1: { bgClass: "bg-yellow-400", borderClass: "border-yellow-500" },
-  B2: { bgClass: "bg-blue-400", borderClass: "border-blue-500" },
-  C1: { bgClass: "bg-purple-400", borderClass: "border-purple-500" },
-  C2: { bgClass: "bg-red-400", borderClass: "border-red-500" },
-};
-
-const COLOR_SET = [
-  { bgClass: "bg-purple-400", borderClass: "border-purple-500" },
-  { bgClass: "bg-blue-400", borderClass: "border-blue-500" },
-  { bgClass: "bg-emerald-400", borderClass: "border-emerald-500" },
-  { bgClass: "bg-pink-400", borderClass: "border-pink-500" },
-  { bgClass: "bg-yellow-400", borderClass: "border-yellow-500" },
-  { bgClass: "bg-red-400", borderClass: "border-red-500" },
-  { bgClass: "bg-indigo-400", borderClass: "border-indigo-500" },
-];
-
-
-/* ✅ DAILY WORDS API */
-async function fetchDailyWords(): Promise<BaseWord[]> {
-  try {
-    const res = await fetch("https://api.enwis.uz/v1/api/daily-words");
-    if (!res.ok) return BASE_WORDS;
-
-    const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) return BASE_WORDS;
-
-    return data.slice(0, 5).map((item: any, idx: number) => {
-      const color = COLOR_SET[idx % COLOR_SET.length];
-
-      return {
-        word: item.word || BASE_WORDS[idx]?.word || `Word${idx + 1}`,
-        uz_translation:
-          item.uz_translation ||
-          item.translation ||
-          BASE_WORDS[idx]?.uz_translation ||
-          "",
-        level: item.level || "—", // level bor, lekin rangga ta’sir qilmaydi
-        bgClass: color.bgClass,
-        borderClass: color.borderClass,
-      };
-    });
-  } catch {
-    return BASE_WORDS;
-  }
-}
-
-
-/* Dictionary API (o‘zgarmagan) */
-async function fetchDictionaryEntry(word: string): Promise<WordDetails | null> {
-  try {
-    const res = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`
-    );
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    const entry = data[0];
-    const meanings = entry?.meanings || [];
-
-    return {
-      word,
-      definitions: meanings.flatMap((m: any) =>
-        (m.definitions || []).map((d: any) => ({
-          definition: d.definition,
-          example: d.example,
-        }))
-      ),
-      phonetic: entry?.phonetic,
-      audio: entry?.phonetics?.find((p: any) => p.audio)?.audio,
-      part: meanings[0]?.partOfSpeech,
-      synonyms: meanings.flatMap((m: any) => m.synonyms || []),
-      antonyms: meanings.flatMap((m: any) => m.antonyms || []),
-      origin: entry?.origin,
-    };
-  } catch {
-    return null;
-  }
-}
-
-/* -----------------------------------------
-Component
-------------------------------------------- */
-
-export default function DailyWordsSection(): JSX.Element {
-  const [words, setWords] = useState<BaseWord[]>(BASE_WORDS);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [details, setDetails] = useState<WordDetails | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [loadingWords, setLoadingWords] = useState(true);
-  const [wordsError, setWordsError] = useState<string | null>(null);
-
-  useEffect(() => {
-    AOS.init({ duration: 700, once: true });
-  }, []);
-
-  // Fetch daily words once on mount
-  useEffect(() => {
-    let mounted = true;
-    setLoadingWords(true);
-    fetchDailyWords()
-      .then((res) => {
-        if (!mounted) return;
-        setWords(res);
-      })
-      .catch((err) => {
-        if (!mounted) return;
-        setWordsError("Failed to load daily words. Showing defaults.");
-        setWords(BASE_WORDS);
-      })
-      .finally(() => {
-        if (!mounted) return;
-        setLoadingWords(false);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  // Fetch dictionary entry when selected changes
-  useEffect(() => {
-    if (!selected) return;
-    let mounted = true;
-    setLoading(true);
-    setDetails(null);
-
-    fetchDictionaryEntry(selected)
-      .then((res) => {
-        if (!mounted) return;
-        setDetails(res);
-      })
-      .catch(() => {
-        if (!mounted) return;
-        setDetails(null);
-      })
-      .finally(() => {
-        if (!mounted) return;
-        setLoading(false);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, [selected]);
-
-  // ESC to close modal
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelected(null);
-        setDetails(null);
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  const closeModal = () => {
-    setSelected(null);
-    setDetails(null);
-  };
-
-  const playAudio = () => {
-    if (!details?.audio) return;
-    try {
-      new Audio(details.audio).play();
-    } catch {
-      // ignore playback errors
-    }
-  };
+export default function DailyWordsSection() {
+  const [selected, setSelected] = useState<typeof BASE_WORDS[0] | null>(null);
 
   return (
-    <section className="py-24 bg-linear-to-b from-[#F8FAFC] to-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-        {/* TITLE */}
-        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1E293B]" data-aos="fade-up">
-          Daily Vocabulary Boost
-        </h2>
+    <section className="py-24 bg-[#FCFCF9] relative overflow-hidden" id="vocabulary">
+      
+      {/* DAFTAR FON EFFEKTLARI */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" 
+           style={{ backgroundImage: `linear-gradient(#94a3b8 1px, transparent 1px)`, backgroundSize: '100% 40px' }} 
+      />
+      <div className="absolute left-[5%] md:left-[8%] top-0 bottom-0 w-[2px] bg-red-200/40 z-0" />
 
-        {/* STATUS */}
-        <div className="mt-4">
-          {loadingWords ? (
-            <p className="text-gray-500">Loading words...</p>
-          ) : wordsError ? (
-            <p className="text-yellow-600">{wordsError}</p>
-          ) : (
-            <p className="text-gray-500">Tap a word to see definitions and examples.</p>
-          )}
-        </div>
-
-        {/* GRID */}
-        <div
-          className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
-          data-aos="fade-up"
-          data-aos-delay="150"
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* SARLAVHA ANIMATSIYASI */}
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center md:text-left"
         >
-          {words.map((w, i) => (
-            <button
-              key={`${w.word}-${i}`}
-              onClick={() => setSelected(w.word)}
-              className="
-                group relative p-6 rounded-2xl bg-white/40 backdrop-blur-md
-                border border-white/30 shadow-2xl hover:-translate-y-2
-                transition-all duration-300 text-left
-              "
-              aria-label={`Open details for ${w.word}`}
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAB308] text-white font-black text-xs uppercase -rotate-1 mb-4">
+             <PencilLine size={14} /> Today's Vocabulary
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black text-slate-800 tracking-tighter italic uppercase">
+            Word <span className="text-[#EAB308]">Stickers</span>
+          </h2>
+        </motion.div>
+
+        {/* STIKERLAR GRIDI */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {BASE_WORDS.map((w, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
             >
-              <div className={`absolute -top-8 -right-8 w-28 h-28 ${w.bgClass} blur-3xl opacity-30`} />
+              <button
+                onClick={() => setSelected(w)}
+                style={{ backgroundColor: w.color, rotate: `${w.rotate}deg` }}
+                className="group relative w-full p-6 min-h-[200px] flex flex-col justify-between text-left border-[3px] border-slate-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+              >
+                {/* SKOTCH */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-7 bg-white/60 backdrop-blur-sm border-x border-slate-200 -rotate-2" />
 
-              <span className={`px-3 py-1 text-sm text-white rounded-full ${w.bgClass}`}>
-                {w.level}
-              </span>
+                <div>
+                  <span className="text-[10px] font-black uppercase text-slate-500/60 block mb-2 underline decoration-slate-300 underline-offset-4">Level {w.level}</span>
+                  <h3 className="text-xl md:text-2xl font-black text-slate-900 leading-tight break-words uppercase italic">
+                    {w.word}
+                  </h3>
+                </div>
 
-              <h3 className="mt-4 text-2xl font-bold text-[#111827]">{w.word}</h3>
-
-              <p className="mt-2 text-gray-600 text-sm">Tap for details</p>
-
-              {/* Hover bottom neon line */}
-              <div
-                className={`absolute bottom-0 left-0 h-1 w-full ${w.bgClass} opacity-0 group-hover:opacity-80 transition`}
-              />
-            </button>
+                <div className="mt-4 border-t-2 border-slate-900/10 pt-3 flex justify-between items-center">
+                   <span className="text-[10px] font-bold text-slate-600 uppercase">Open Card</span>
+                   <Highlighter size={16} className="text-[#EAB308]" />
+                </div>
+              </button>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* MODAL */}
-      {selected && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="bg-white max-w-2xl w-full rounded-2xl shadow-2xl p-6 relative">
-            {/* CLOSE BUTTON */}
-            <button
-              className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-black"
-              onClick={closeModal}
-              aria-label="Close"
-            >
-              ×
-            </button>
+      {/* MODAL ANIMATSIYASI */}
+      <AnimatePresence>
+        {selected && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            {/* Fonni qorong'ulashtirish */}
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setSelected(null)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
 
-            {loading || !details ? (
-              <div className="flex flex-col items-center gap-4">
-                <p className="text-gray-600">{loading ? "Loading..." : "No details found."}</p>
-                <button
-                  onClick={() => {
-                    // try dictionary with lowercase fallback
-                    if (!loading) {
-                      setSelected((s) => (s ? s.toLowerCase() : s));
-                    }
-                  }}
-                  className="px-4 py-2 rounded bg-gray-100"
+            {/* Modal Varag'i */}
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              className="bg-white border-[4px] border-slate-900 shadow-[15px_15px_0px_0px_rgba(0,0,0,1)] max-w-lg w-full relative overflow-hidden z-[101]"
+            >
+              {/* MODAL HEADER */}
+              <div className="bg-slate-900 p-4 flex justify-between items-center">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#EAB308]" />
+                  <div className="w-3 h-3 rounded-full bg-blue-500" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                </div>
+                <button 
+                  onClick={() => setSelected(null)} 
+                  className="text-white hover:rotate-90 transition-transform bg-white/10 p-1 rounded"
                 >
-                  Try lowercase
+                  <X size={24} />
                 </button>
               </div>
-            ) : (
-              <>
-                {/* Word + Phonetic + Audio */}
-                <div className="flex items-center gap-3">
-                  <h3 className="text-3xl font-bold">{details.word}</h3>
 
-                  {details.phonetic && <span className="text-gray-500 text-lg">{details.phonetic}</span>}
-
-                  {details.audio && (
-                    <button onClick={playAudio} className="text-blue-600 hover:text-blue-800" aria-label="Play audio">
-                      <VolumeUpIcon className="w-7 h-7" />
-                    </button>
-                  )}
+              <div className="p-8 space-y-6">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-4xl font-black italic uppercase text-slate-900 tracking-tighter underline decoration-[#EAB308] decoration-4">
+                    {selected.word}
+                  </h3>
+                  <button className="p-3 bg-slate-100 rounded-full hover:bg-[#EAB308] group transition-all">
+                    <Volume2 size={24} className="group-hover:text-white" />
+                  </button>
                 </div>
 
-                <p className="text-gray-600 mt-1">{details.part}</p>
+                {/* Tarjima - Marker foni bilan */}
+                <div className="relative inline-block py-1 px-4">
+                  <span className="relative z-10 text-2xl font-serif italic font-bold text-slate-800">
+                    {selected.uz_translation}
+                  </span>
+                  <motion.div 
+                    initial={{ width: 0 }} 
+                    animate={{ width: '100%' }}
+                    className="absolute inset-0 bg-[#EAB308]/40 -rotate-2 z-0" 
+                  />
+                </div>
 
-                {/* Uzbek Translation */}
-                <div className="mt-4 p-3 rounded-xl bg-linear-to-r from-green-50 to-green-100 border border-green-300 shadow">
-                  <h4 className="font-semibold text-green-800">Uzbek Translation</h4>
-                  <p className="text-gray-700 mt-1">
-                    {words.find((w) => w.word.toLowerCase() === details.word.toLowerCase())
-                      ?.uz_translation || "Tarjima mavjud emas."}
+                <div className="pt-6 border-t-2 border-dashed border-slate-200">
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1">
+                    <Hash size={12} /> Meaning
+                  </h4>
+                  <p className="text-slate-700 italic leading-relaxed font-medium">
+                    Showing great attention to detail; very careful and precise in your work.
                   </p>
                 </div>
 
-                {/* Definitions */}
-                <div className="mt-6">
-                  <h4 className="font-semibold text-gray-800">Definitions</h4>
-                  <ul className="list-disc ml-6 mt-2 space-y-2">
-                    {details.definitions.length > 0 ? (
-                      details.definitions.map((d, i) => (
-                        <li key={i} className="text-gray-700">
-                          {d.definition}
-                          {d.example && <p className="text-sm italic text-gray-500">“{d.example}”</p>}
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-gray-500">No definitions found.</li>
-                    )}
-                  </ul>
+                <div className="flex gap-3 pt-4">
+                   <div className="flex-1 p-3 bg-emerald-50 border-l-4 border-emerald-400">
+                      <p className="text-[9px] font-black text-emerald-600 uppercase">Synonym</p>
+                      <p className="text-sm font-bold">Thorough</p>
+                   </div>
+                   <div className="flex-1 p-3 bg-rose-50 border-l-4 border-rose-400">
+                      <p className="text-[9px] font-black text-rose-600 uppercase">Antonym</p>
+                      <p className="text-sm font-bold">Careless</p>
+                   </div>
                 </div>
+              </div>
 
-                {/* Synonyms */}
-                <div className="mt-6">
-                  <h4 className="font-semibold text-gray-800">Synonyms</h4>
-                  {details.synonyms.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {details.synonyms.map((s, i) => (
-                        <span key={i} className="px-2 py-1 rounded bg-gray-100 text-sm">
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-500">No synonyms found.</p>
-                  )}
-                </div>
-
-                {/* Antonyms */}
-                <div className="mt-6">
-                  <h4 className="font-semibold text-gray-800">Antonyms</h4>
-                  {details.antonyms.length > 0 ? (
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {details.antonyms.map((a, i) => (
-                        <span key={i} className="px-2 py-1 rounded bg-red-50 text-sm">
-                          {a}
-                        </span>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-500">No antonyms found.</p>
-                  )}
-                </div>
-              </>
-            )}
+              <div className="bg-slate-50 p-3 border-t border-slate-200 text-center">
+                 <p className="text-[9px] font-mono text-slate-400">DAILY_VOCAB_STICKER_SYSTEM_V.1</p>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 }
