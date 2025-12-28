@@ -59,7 +59,7 @@ export function Hero() {
                             </Link>
                         </Button>
                         <div className="relative inline-block group">
-                            <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-slate-50 transition-all font-mono">
+                            <Button variant="outline" className="h-16 px-10 border-2 border-slate-300 text-slate-700 text-lg rounded-none hover:bg-green-300 transition-all font-mono">
                                 Try Free Demo
                             </Button>
                             {/* Qo'lda chizilgan strelka */}
