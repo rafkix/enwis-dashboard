@@ -1,2 +1,2 @@
 # enwis-dashboard
-https://enwis.uz
+https://enwis.uz/
