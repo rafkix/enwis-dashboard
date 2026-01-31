@@ -22,7 +22,7 @@ export const loginAPI = ({ username, password }: LoginPayload) => {
 };
 
 export const meAPI = () => {
-    return api.get("/auth/me");
+    return api.get("/users/get_me");
 };
 
 export const telegramRegisterAPI = (

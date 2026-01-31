@@ -10,7 +10,7 @@ import {
 GET MY PROFILE
 ----------------------------- */
 export const getMyProfileAPI = () => {
-    return api.get<User>("/users/me");
+    return api.get<User>("/users/get_me");
 };
 
 /* ----------------------------
@@ -19,7 +19,7 @@ UPDATE PROFILE
 export const updateProfileAPI = (
     payload: UpdateProfilePayload
 ) => {
-    return api.put<User>("/users/update", payload);
+    return api.put<User>("/users/update/profiel", payload);
 };
 
 /* ----------------------------
@@ -29,7 +29,7 @@ export const changePasswordAPI = (
     payload: ChangePasswordPayload
 ) => {
     return api.put<ApiMessage>(
-        "/users/change_password",
+        "/users/update/change_password",
         payload
     );
 };
@@ -42,7 +42,7 @@ export const uploadAvatarAPI = (file: File) => {
     formData.append("avatar", file);
 
     return api.post<User>(
-        "/users/upload_avatar",
+        "/users/update/profile/photo",
         formData,
         {
         headers: {
@@ -57,7 +57,7 @@ DELETE ME
 ----------------------------- */
 export const deleteMeAPI = () => {
     return api.delete<ApiMessage>(
-        "/users/delete_me"
+        "/users/delete/me"
     );
 };
 
@@ -66,6 +66,6 @@ ADMIN: DELETE USER
 ----------------------------- */
 export const deleteUserAPI = (userId: string) => {
     return api.delete<ApiMessage>(
-        `/users/delere_user/${userId}`
+        `/admin/users/delete/${userId}`
     );
 };

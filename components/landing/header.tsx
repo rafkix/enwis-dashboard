@@ -2,23 +2,55 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import dynamic from "next/dynamic"
-import { Home, Layers, Brain, User, Pencil } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import {
+    Home, BookCheck, BarChart3, User, Contact, Search,
+    ArrowRight, Wallet, LayoutGrid, SquareGanttChart, Newspaper, LogIn,
+    Menu, X, ChevronRight, // Yangi iconlar
+    Zap
+} from "lucide-react"
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
+import { Button } from "@/components/ui/button"
 
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => mod.motion.div), {
     ssr: false,
 })
 
 export function Header() {
+    // --- STATE ---
     const [isMobile, setIsMobile] = useState(false)
     const [scrolled, setScrolled] = useState(false)
+    const [mounted, setMounted] = useState(false)
+    const [isOpen, setIsOpen] = useState(false) // Mobil menyu holati
 
+    const isLoggedIn = false
+
+    const pathname = usePathname()
     const { scrollYProgress } = useScroll()
-    const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
+    const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
+
+    // Sahifa o'zgarganda menyuni yopish
+    useEffect(() => {
+        setIsOpen(false)
+    }, [pathname])
+
+    // Body scrollni bloklash (menyu ochilganda)
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isOpen])
+
+    // Header stili logikasi
+    const isTransparentPage = pathname === '/' || pathname.startsWith('/exams/[ID]')
+    const isHeaderTransparent = isTransparentPage && !scrolled && !isOpen
+    const isWhiteText = pathname.startsWith('/exams/[ID]') && !scrolled && !isOpen
 
     useEffect(() => {
+        setMounted(true)
         const update = () => {
             setIsMobile(window.innerWidth < 1024)
             setScrolled(window.scrollY > 20)
@@ -32,107 +64,173 @@ export function Header() {
         }
     }, [])
 
-    const navItems = [
-        { name: "Home", href: "#home" },
-        { name: "Features", href: "#why-choose-us" },
-        { name: "About", href: "#about-us" },
-        { name: "Writing", href: "/writing" },
-        { name: "Team", href: "#team" },
+    const navItems = isLoggedIn ? [
+        { name: "Kabinet", href: "/dashboard", icon: LayoutGrid },
+        { name: "Imtihonlar", href: "/exams", icon: BookCheck },
+        { name: "Natijalar", href: "/results", icon: BarChart3 },
+        { name: "Hamyon", href: "/billing", icon: Wallet },
+    ] : [
+        { name: "Asosiy", href: "/", icon: Home },
+        { name: "Imtihonlar", href: "/exams", icon: BookCheck },
+        { name: "Tariflar", href: "/pricing", icon: Wallet },
+        { name: "B2B Business", href: "/business", icon: SquareGanttChart },
+        { name: "Blog", href: "/blog", icon: Newspaper },
+        { name: "Bog'lanish", href: "/contacts", icon: Contact }
     ]
+
+    const activeItems = isLoggedIn ? navItems : navItems.slice(0, 6)
+
+    if (!mounted) return null
 
     return (
         <>
-            {/* Progress Bar */}
-            <motion.div className="fixed top-0 left-0 right-0 h-1 bg-[#EAB308] origin-left z-[100]" style={{ scaleX }} />
+            {/* 1. PROGRESS BAR */}
+            <motion.div
+                className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#17776A] to-emerald-400 origin-left z-[120]"
+                style={{ scaleX }}
+            />
 
-            {!isMobile && (
-                <header className={`fixed left-0 right-0 z-[60] transition-all duration-500 px-8 ${scrolled ? "top-3" : "top-6"}`}>
-                    <nav className={`max-w-7xl mx-auto px-6 h-16 flex justify-between items-center transition-all duration-500 
-                        ${scrolled ? "bg-white border-2 border-slate-900 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] rounded-xl" : "bg-transparent"}`}>
-                        
-                        {/* 🏷️ LOGO STICKER - Balanslangan variant */}
-                        <MotionDiv 
-                            whileHover={{ rotate: 0, scale: 1.05 }}
-                            // paddingni kamaytirib, balandlikni h-10 (40px) ga chekladik
-                            className="relative bg-white border-2 border-slate-900 px-2 py-1 -rotate-2 shadow-[2.5px_2.5px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center h-10"
-                        >
-                            {/* Skotch bo'lagi - yanada ingichka va ixcham */}
-                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-3 bg-blue-400/20 backdrop-blur-[1px] border-x border-blue-500/10 rotate-6 pointer-events-none" />
-                            
-                            <Link href="/" className="flex items-center">
-                                <img 
-                                    src="enwis.jpg" 
-                                    alt="ENWIS Logo" 
-                                    // rasm o'lchami w-12 dan w-14 gacha (taxminan 50-60px)
-                                    className="w-12 md:w-14 h-auto object-contain max-h-6" 
-                                />
-                            </Link>
-                        </MotionDiv>
+            {/* 2. HEADER (Desktop & Mobile Wrapper) */}
+            <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled || isOpen ? "py-3" : "py-5"
+                }`}>
+                <nav className={`mx-auto transition-all duration-500 flex justify-between items-center px-6 md:px-10 rounded-2xl ${(scrolled || isOpen)
+                        ? "max-w-6xl h-16 bg-white/90 backdrop-blur-xl border border-slate-200/50 shadow-sm" // Scrolled or Open
+                        : isHeaderTransparent
+                            ? "max-w-[1440px] h-20 bg-transparent" // Top Transparent
+                            : "max-w-[1440px] h-20 bg-white/60 backdrop-blur-md border border-white/40" // Default
+                    }`}>
 
-                        {/* 📑 NAV ITEMS */}
-                        <div className="flex items-center gap-1 lg:gap-2">
-                            {navItems.map((item) => (
-                                <Link 
-                                    key={item.name}
-                                    href={item.href} 
-                                    className="px-4 py-2 text-[13px] font-black text-slate-600 hover:text-slate-900 uppercase tracking-tight transition-all"
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
+                    {/* --- LOGO --- */}
+                    <Link href="/" className="flex items-center gap-2 group transition-transform active:scale-95 z-50">
+                        <img
+                            src="/enwis.png"
+                            alt="Enwis Logo"
+                            className={`h-8 md:h-9 w-auto object-contain transition-all duration-300 ${isWhiteText ? "brightness-0 invert opacity-90" : ""
+                                }`}
+                        />
+                    </Link>
+
+                    {/* --- DESKTOP MENU (Hidden on Mobile) --- */}
+                    {!isMobile && (
+                        <>
+                            <div className={`flex items-center gap-1 p-1 rounded-xl border transition-all duration-300 ${isHeaderTransparent ? 'bg-white/10 border-white/10 backdrop-blur-md' : 'bg-slate-100/50 border-slate-200/50'
+                                }`}>
+                                {activeItems.slice(0, 6).map((item) => {
+                                    const isActive = pathname === item.href
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${isActive
+                                                    ? "bg-white text-[#17776A] shadow-sm"
+                                                    : isWhiteText
+                                                        ? "text-white/90 hover:text-white hover:bg-white/10"
+                                                        : "text-slate-600 hover:text-[#17776A] hover:bg-white/60"
+                                                }`}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+
+                            {/* Desktop Actions */}
+                            <div className="flex items-center gap-4">
+                                <button className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${isWhiteText ? "text-white hover:bg-white/10" : "text-slate-500 hover:bg-slate-100 hover:text-[#17776A]"
+                                    }`}>
+                                    <Search size={20} />
+                                </button>
+
+                                <div className={`h-6 w-[1px] ${isWhiteText ? "bg-white/20" : "bg-slate-200"}`} />
+
+                                {isLoggedIn ? (
+                                    <Link href="/profile">
+                                        <div className="flex items-center gap-3 pl-2 pr-1 py-1 bg-white border border-slate-200 rounded-full hover:shadow-md transition-all cursor-pointer">
+                                            <span className="text-sm font-bold text-slate-700 pl-2">Azizbek</span>
+                                            <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-[#17776A] font-bold">A</div>
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <Link href="/auth">
+                                        <MotionDiv whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                                            <div className="bg-[#17776A] hover:bg-[#136358] text-white font-bold uppercase text-[11px] tracking-widest rounded-xl px-6 h-10 flex items-center justify-center shadow-lg shadow-[#17776A]/20 transition-all cursor-pointer">
+                                                Kirish <ArrowRight size={16} className="ml-2" />
+                                            </div>
+                                        </MotionDiv>
+                                    </Link>
+                                )}
+                            </div>
+                        </>
+                    )}
+
+                    {/* --- MOBILE HAMBURGER (Visible on Mobile) --- */}
+                    {isMobile && (
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className={`p-2 rounded-xl transition-colors z-50 ${isWhiteText && !isOpen ? "text-white bg-white/10" : "text-slate-800 bg-slate-100"
+                                    }`}
+                            >
+                                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
                         </div>
+                    )}
+                </nav>
+            </header>
 
-                        {/* 🔓 AUTH BUTTONS */}
-                        <div className="flex items-center gap-4">
-                            <Link href="/auth" className="text-[12px] font-black text-slate-500 hover:text-slate-900 uppercase">
-                                Sign In
-                            </Link>
-                            <MotionDiv whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button className="bg-[#EAB308] hover:bg-[#FACC15] text-slate-900 font-black border-2 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-none px-6 h-10 uppercase italic transition-all">
-                                    Get Started
-                                </Button>
-                            </MotionDiv>
-                        </div>
-                    </nav>
-                </header>
-            )}
-
-            {/* 📱 MOBILE TABBAR */}
+            {/* 3. MOBILE MENU OVERLAY (Standard) */}
             <AnimatePresence>
-                {isMobile && (
-                    <MotionDiv 
-                        initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }}
-                        className="fixed bottom-6 left-6 right-6 z-[100] bg-white border-[3px] border-slate-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-[2rem] px-2 py-3"
+                {isMobile && isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[90] bg-white pt-28 px-6 pb-10 overflow-y-auto"
                     >
-                        <div className="flex justify-around items-end">
-                            <MobileTab href="#home" icon={<Home size={22} />} label="Home" index={1} />
-                            <MobileTab href="#why-choose-us" icon={<Layers size={22} />} label="Features" index={2} />
-                            <MobileTab href="/writing" icon={<Brain size={26} />} label="AI" index={3} isSpecial />
-                            <MobileTab href="#team" icon={<User size={22} />} label="Team" index={4} />
-                            <MobileTab href="/auth" icon={<Pencil size={22} />} label="Login" index={5} />
+                        <div className="flex flex-col h-full justify-between">
+                            {/* Links */}
+                            <div className="flex flex-col gap-2">
+                                {activeItems.map((item, idx) => {
+                                    const isActive = pathname === item.href
+                                    return (
+                                        <Link
+                                            key={idx}
+                                            href={item.href}
+                                            className={`flex items-center gap-4 p-4 rounded-2xl transition-all ${isActive
+                                                    ? "bg-[#17776A]/10 text-[#17776A]"
+                                                    : "text-slate-600 hover:bg-slate-50"
+                                                }`}
+                                        >
+                                            <div className={`p-2 rounded-xl ${isActive ? "bg-white text-[#17776A]" : "bg-slate-100 text-slate-500"}`}>
+                                                <item.icon size={22} />
+                                            </div>
+                                            <span className="text-lg font-bold">{item.name}</span>
+                                            {isActive && <ChevronRight className="ml-auto" size={20} />}
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+
+                            {/* Actions Footer */}
+                            <div className="mt-8 space-y-4">
+                                <Link href={isLoggedIn ? "/exam/new" : "/auth"} className="w-full block">
+                                    <Button className="w-full h-14 bg-[#17776A] hover:bg-[#136358] text-white rounded-2xl text-lg font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#17776A]/20">
+                                        {isLoggedIn ? <Zap size={20} /> : <LogIn size={20} />}
+                                        {isLoggedIn ? "Sinovni Boshlash" : "Tizimga Kirish"}
+                                    </Button>
+                                </Link>
+
+                                {/* Qo'shimcha info */}
+                                <div className="flex justify-center gap-6 text-slate-400 mt-4">
+                                    <Link href="/about" className="text-xs font-medium hover:text-[#17776A]">Biz Haqimizda</Link>
+                                    <Link href="/privacy" className="text-xs font-medium hover:text-[#17776A]">Maxfiylik</Link>
+                                </div>
+                            </div>
                         </div>
-                    </MotionDiv>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </>
-    )
-}
-
-function MobileTab({ href, icon, label, index, isSpecial = false }: any) {
-    return (
-        <Link href={href} className="flex flex-col items-center gap-1 group">
-            <div 
-                className={`
-                    flex items-center justify-center transition-all
-                    ${isSpecial ? 
-                        "w-16 h-16 bg-[#EAB308] border-[3px] border-slate-900 -mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-2xl rotate-3" : 
-                        "p-2 text-slate-400 group-hover:text-slate-900"
-                    }
-                `}
-            >
-                {icon}
-            </div>
-            {!isSpecial && <span className="text-[10px] font-black text-slate-800 uppercase">{label}</span>}
-        </Link>
     )
 }

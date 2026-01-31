@@ -5,6 +5,7 @@ import { AuthProvider } from "@/context/AuthContext"
 import { Link } from "lucide-react"
 import { Header } from "@radix-ui/react-accordion"
 import { Footer } from "react-day-picker"
+import LayoutWrapper from "@/components/LayoutWrapper"
 
 
 export const metadata: Metadata = {
@@ -23,9 +24,11 @@ export default function RootLayout({
         <link rel="icon" href="https://image2url.com/images/1764944410839-0e0e3e25-d678-4801-9f49-011a4d8f6de0.png" />
         <script src="https://telegram.org/js/telegram-widget.js?22" async />
         <body>
-            <AuthProvider>
-                {children}
-            </AuthProvider>
+            <LayoutWrapper>
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
+            </LayoutWrapper>
         </body>
         </html>
     )

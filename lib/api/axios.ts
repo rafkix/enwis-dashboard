@@ -1,5 +1,6 @@
 import axios from "axios";
-import { API_URL } from "./config";
+
+const API_URL = "http://127.0.0.1:8000/v1/api"; // Sizning backend manzilingiz
 
 const api = axios.create({
     baseURL: API_URL,
@@ -10,7 +11,7 @@ api.interceptors.request.use((config) => {
     if (typeof window !== "undefined") {
         const token = localStorage.getItem("access_token");
         if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
         }
     }
     return config;

@@ -1,130 +1,90 @@
-'use client'
+"use client"
 
+import React from "react"
 import Link from "next/link"
-import { Mail, Github, Twitter, Youtube, Instagram, Pencil, Hash, ArrowUpRight } from 'lucide-react'
-import { motion } from "framer-motion"
+import { 
+    Instagram, Youtube, Send, Mail, MapPin, 
+    ArrowRight 
+} from "lucide-react"
 
 export function Footer() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-[#fffdfa] py-16 relative overflow-hidden">
+        <footer className="bg-[#020617] text-slate-400 font-sans border-t border-slate-900 relative overflow-hidden">
             
-            {/* DAFTAR FON EFFEKTI (Hoshiya chiziqlari) */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" 
-                 style={{ backgroundImage: `linear-gradient(#94a3b8 1px, transparent 1px)`, backgroundSize: '100% 40px' }} 
-            />
-            <div className="absolute left-[5%] md:left-[8%] top-0 bottom-0 w-[2px] bg-red-200/40 z-0" />
+            {/* Orqa fon nuri */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#17776A]/5 blur-[120px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            {/* Asosiy Container */}
+            <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 py-16 relative z-10">
+                
+                {/* 1. MAIN GRID (Yuqori qism) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-12 pb-12 border-b border-slate-900">
                     
-                    {/* LOGO VA TA'RIF */}
-                    <div className="flex flex-col items-start space-y-6">
-                        <motion.div 
-                            whileHover={{ rotate: -5 }}
-                            className="relative inline-block p-2 bg-white border-2 border-slate-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-                        >
-                            <img
-                                src="https://image2url.com/images/1764944410839-0e0e3e25-d678-4801-9f49-011a4d8f6de0.png"
-                                alt="ENWIS"
-                                className="w-16 h-16 object-contain"
-                            />
-                        </motion.div>
-                        
-                        <div className="relative">
-                            <p className="text-slate-700 font-serif italic leading-relaxed max-w-[240px]">
-                                AI-powered vocabulary learning platform that 
-                                <span className="bg-yellow-200 px-1 ml-1">remembers what you struggle with.</span>
-                            </p>
-                            <Pencil className="absolute -bottom-6 -right-4 text-slate-300 -rotate-12" size={24} />
+                    {/* BRAND (Chap) */}
+                    <div className="lg:col-span-4 space-y-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-[#17776A] rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-[#17776A]/20">E</div>
+                            <span className="text-2xl font-bold text-white tracking-tight">Enwis</span>
+                        </div>
+                        <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+                            Sun'iy intellekt yordamida bilimingizni aniq baholang. Biz ta'lim sifatini yangi bosqichga olib chiqamiz.
+                        </p>
+                        <div className="flex gap-3 pt-2">
+                            {[{ icon: Instagram }, { icon: Youtube }, { icon: Send }].map((item, i) => (
+                                <a key={i} href="#" className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center hover:bg-[#17776A] hover:text-white transition-all">
+                                    <item.icon size={18} />
+                                </a>
+                            ))}
                         </div>
                     </div>
 
-                    {/* PRODUCT - Plomaster underline effekti bilan */}
-                    <div>
-                        <h4 className="font-black text-slate-900 mb-6 uppercase tracking-tighter italic border-b-2 border-slate-900 inline-block">
-                            Product
-                        </h4>
-                        <ul className="space-y-3">
-                            {['Features', 'Pricing', 'FAQ'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="group flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-bold text-sm">
-                                        <Hash size={12} className="text-slate-300" />
-                                        {item}
-                                        <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* COMPANY */}
-                    <div>
-                        <h4 className="font-black text-slate-900 mb-6 uppercase tracking-tighter italic border-b-2 border-slate-900 inline-block">
-                            Company
-                        </h4>
-                        <ul className="space-y-3">
-                            {['About', 'Blog', 'Careers'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="group flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-bold text-sm">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-emerald-400" />
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* CONNECT - Rangli stiker uslubida */}
-                    <div>
-                        <h4 className="font-black text-slate-900 mb-6 uppercase tracking-tighter italic border-b-2 border-slate-900 inline-block">
-                            Connect
-                        </h4>
-                        <div className="flex gap-4">
-                            {[
-                                { icon: Twitter, color: 'hover:bg-blue-400', label: 'Twitter' },
-                                { icon: Youtube, color: 'hover:bg-red-500', label: 'Youtube' },
-                                { icon: Instagram, color: 'hover:bg-pink-500', label: 'Instagram' }
-                            ].map((social, i) => (
-                                <Link 
-                                    key={i} 
-                                    href="#" 
-                                    className={`w-10 h-10 flex items-center justify-center border-2 border-slate-900 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-white transition-all hover:-translate-y-1 hover:shadow-none ${social.color} hover:text-white`}
-                                >
-                                    <social.icon size={20} />
-                                </Link>
-                            ))}
+                    {/* LINKS (O'rta) */}
+                    <div className="lg:col-span-4 grid grid-cols-2 gap-8">
+                        <div>
+                            <h4 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Platforma</h4>
+                            <ul className="space-y-3 text-sm font-medium">
+                                {['Test Topshirish', 'Tariflar', 'Natijalar', 'Yangiliklar'].map(l => <li key={l}><Link href="#" className="hover:text-[#17776A] transition-colors">{l}</Link></li>)}
+                            </ul>
                         </div>
-                        <p className="mt-6 text-[10px] font-mono text-slate-400 leading-tight uppercase">
-                            // stay_tuned <br />
-                            // follow_the_journey
-                        </p>
+                        <div>
+                            <h4 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Kompaniya</h4>
+                            <ul className="space-y-3 text-sm font-medium">
+                                {['Biz Haqimizda', 'Xayriya', 'Aloqa', 'Ommaviy Oferta'].map(l => <li key={l}><Link href="#" className="hover:text-[#17776A] transition-colors">{l}</Link></li>)}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* CONTACT (O'ng) */}
+                    <div className="lg:col-span-4 space-y-5">
+                        <h4 className="text-white font-bold mb-1 text-sm uppercase tracking-wider">Yangiliklar</h4>
+                        <div className="flex gap-2">
+                            <input type="email" placeholder="Email manzilingiz" className="w-full bg-slate-900 border border-slate-800 text-slate-300 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-[#17776A] transition-colors" />
+                            <button className="bg-[#17776A] hover:bg-[#136358] text-white rounded-xl px-4 transition-colors"><ArrowRight size={20} /></button>
+                        </div>
+                        <div className="pt-2 space-y-2">
+                            <a href="mailto:info@enwis.uz" className="flex items-center gap-3 text-sm text-slate-400 hover:text-white transition-colors">
+                                <Mail size={16} className="text-[#17776A]" /> info@enwis.uz
+                            </a>
+                            <div className="flex items-start gap-3 text-sm text-slate-400">
+                                <MapPin size={16} className="text-[#17776A] mt-0.5" /> Farg'ona sh., Qirguli, 108-uy
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* BOTTOM FOOTER - Daftarning eng quyi qismi */}
-                <div className="pt-8 border-t-2 border-dashed border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-red-400" />
-                        <p className="text-xs font-black text-slate-800 uppercase italic tracking-widest">
-                            &copy; {currentYear} E N W I S. Project_Final_v1.0
-                        </p>
-                    </div>
-                    
-                    <div className="flex gap-8">
-                        <Link href="#" className="text-xs font-bold text-slate-400 hover:text-slate-900 hover:underline decoration-yellow-400 decoration-2 underline-offset-4 transition-all">
-                            Privacy Policy
-                        </Link>
-                        <Link href="#" className="text-xs font-bold text-slate-400 hover:text-slate-900 hover:underline decoration-yellow-400 decoration-2 underline-offset-4 transition-all">
-                            Terms of Service
-                        </Link>
+                {/* 3. BOTTOM BAR (IXCHAM VA MARKAZLASHGAN) */}
+                <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-xs text-slate-500 font-medium">
+                    <p>&copy; {currentYear} ENWIS Inc. Barcha huquqlar himoyalangan.</p>
+                    <span className="hidden md:block w-1 h-1 rounded-full bg-slate-700" />
+                    <div className="flex gap-6">
+                        <Link href="#" className="hover:text-white transition-colors">Maxfiylik Siyosati</Link>
+                        <Link href="#" className="hover:text-white transition-colors">Foydalanish Shartlari</Link>
                     </div>
                 </div>
+
             </div>
-
-            {/* DEKORATIV PLOMASTER CHIZIG'I (Footerning eng pastida) */}
-            <div className="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-400 via-yellow-400 to-blue-400 opacity-50" />
         </footer>
     )
 }
