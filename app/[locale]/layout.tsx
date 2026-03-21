@@ -23,15 +23,50 @@ export async function generateMetadata({
 
     const dict = await getDictionary(locale);
 
+    const baseUrl = siteConfig.url;
+
     return {
-        metadataBase: new URL(siteConfig.url),
+        metadataBase: new URL(baseUrl),
+
         title: {
             default: dict.meta.home.title,
             template: `%s | ${dict.meta.home.title}`,
         },
+
         description: dict.meta.home.description,
 
-        // Siz yuklagan favicon va ikonkalarni ulash
+        // ✅ SEO keywords
+        keywords: [
+            "DTM test 2026",
+            "IELTS mock test online",
+            "CEFR level test",
+            "English test Uzbekistan",
+            "online test platform",
+            "Enwis platform",
+            "grammar test",
+            "vocabulary test",
+            "mock exam",
+            "student testing system"
+        ],
+
+        // ✅ Open Graph (Facebook, Telegram, etc.)
+        openGraph: {
+            title: dict.meta.home.title,
+            description: dict.meta.home.description,
+            url: `${baseUrl}/${locale}`,
+            siteName: "Enwis",
+            locale: locale,
+            type: "website",
+        },
+
+        // ✅ Twitter preview
+        twitter: {
+            card: "summary_large_image",
+            title: dict.meta.home.title,
+            description: dict.meta.home.description,
+        },
+
+        // ✅ Icons / favicon
         icons: {
             icon: [
                 { url: "/favicon.ico" },
@@ -52,17 +87,25 @@ export async function generateMetadata({
                 },
             ],
         },
+
         manifest: "/site.webmanifest",
 
+        // ✅ hreflang (multi-language SEO)
         alternates: {
-            canonical: `/${locale}`,
+            canonical: `${baseUrl}/${locale}`,
             languages: {
-                uz: "/uz",
-                ru: "/ru",
-                en: "/en",
+                uz: `${baseUrl}/uz`,
+                ru: `${baseUrl}/ru`,
+                en: `${baseUrl}/en`,
             },
         },
-        // Android brauzerlar uchun yuqori panel rangi
+
+        // ✅ Robots (SEO indexing control)
+        robots: {
+            index: true,
+            follow: true,
+        },
+
         themeColor: "#ffffff",
     };
 }
@@ -76,7 +119,6 @@ export default async function LocaleLayout({
 }) {
     const { locale } = await params;
 
-    // Tilni tekshirish
     if (!isValidLocale(locale)) {
         notFound();
     }
