@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "my-walle-project",
+  "name": "my-enwis-project",
   "version": "1.0.0",
   "private": true,
   "scripts": {

@@ -1,0 +1,369 @@
+{
+  "meta": {
+    "home": {
+      "title": "ENWIS — one preparation platform for all exams",
+      "description": "ENWIS is a platform for IELTS, CEFR, DTM, and other exam preparation."
+    }
+  },
+  "common": {
+    "login": "Login"
+  },
+  "navigation": {
+    "features": "Features",
+    "tests": "Tests",
+    "pricing": "Pricing",
+    "business": "Business",
+    "faq": "FAQ",
+    "ielts": "IELTS",
+    "cefr": "CEFR",
+    "dtm": "DTM"
+  },
+  "hero": {
+    "badge": "ENWIS platform",
+    "title": "One preparation platform for all exams",
+    "description": "We bring IELTS, CEFR, DTM, and other preparation tracks into one system with a cleaner flow and clearer analytics.",
+    "primaryCta": "Get started",
+    "secondaryCta": "See features",
+    "proofs": {
+      "tracksText": "IELTS / CEFR / DTM",
+      "progressText": "Weak points are visible",
+      "focusText": "Structured flow"
+    },
+    "preview": {
+      "floatingTopTitle": "AI",
+      "floatingTopText": "Feedback",
+      "floatingBottomTitle": "Progress",
+      "floatingBottomText": "Analytics",
+      "tabs": ["IELTS", "CEFR", "DTM"],
+      "leftCardLabel": "Tracks",
+      "tiles": [
+        { "title": "IELTS", "subtitle": "Listening / Reading" },
+        { "title": "CEFR", "subtitle": "Level / Skills" },
+        { "title": "DTM", "subtitle": "General tests" }
+      ],
+      "rightCardLabel": "Platform",
+      "rightCardTitle": "Everything in one system",
+      "rightCardDescription": "Reading, listening, speaking, writing, feedback, and progress work inside one ecosystem.",
+      "readinessLabel": "System readiness",
+      "readinessValue": "91%",
+      "badges": ["Speaking", "Writing", "Assessment"],
+      "badgeDescriptions": [
+        "AI-assisted speaking flow",
+        "Structured writing feedback",
+        "Unified test system"
+      ]
+    }
+  },
+  "tracks": {
+    "eyebrow": "Test tracks",
+    "title": "One platform for different goals",
+    "description": "ENWIS brings multiple exam formats into one system and helps users move quickly to the right track.",
+    "items": {
+      "ielts": {
+        "description": "For preparation across Listening, Reading, Writing, and Speaking."
+      },
+      "cefr": {
+        "description": "For level checking and step-by-step preparation."
+      },
+      "dtm": {
+        "description": "For local test formats and broader preparation flows."
+      }
+    }
+  },
+  "features": {
+    "eyebrow": "Features",
+    "title": "Capabilities that make preparation clearer",
+    "description": "The platform does more than just deliver tests. It also shows progress, feedback, and the preparation flow.",
+    "items": [
+      {
+        "title": "All tests in one place",
+        "description": "Multiple exam directions can be presented and organized inside a single platform."
+      },
+      {
+        "title": "Results and analytics",
+        "description": "Users can see not only scores, but also weak areas and the next step."
+      },
+      {
+        "title": "Structured feedback",
+        "description": "Writing and other sections can be supported with useful and understandable feedback."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Why ENWIS?",
+    "title": "One clean experience instead of scattered tools",
+    "description": "ENWIS gives users a single flow for finding tests, taking them, and understanding the result.",
+    "items": [
+      "Multiple exam tracks",
+      "AI-assisted analysis",
+      "Visible progress and readiness"
+    ]
+  },
+  "footer": {
+    "description": "ENWIS is a modern and clear platform for exam preparation.",
+    "sections": {
+      "navigation": "Pages",
+      "tests": "Tests"
+    },
+    "links": {
+      "home": "Home",
+      "pricing": "Pricing",
+      "business": "Business"
+    },
+    "copyright": "All rights reserved."
+  },
+  "exams": {
+    "eyebrow": "Exam Preparation",
+    "title": "Test Your Knowledge with International Standards",
+    "description": "Improve your results with simulation tests specifically designed for CEFR, IELTS, and National certificate exams.",
+    "viewAll": "View all exams",
+    "startTest": "Start Test",
+    "cefr": {
+      "title": "CEFR (B1/B2/C1)",
+      "description": "National certificate exams based on State Test Center standards.",
+      "features": [
+        "Grammar & Vocabulary",
+        "Reading & Listening",
+        "Writing analysis"
+      ]
+    },
+    "multilevel": {
+      "title": "Multi-Level",
+      "description": "Unified testing system for all levels valid in Uzbekistan.",
+      "features": ["Real exam environment", "Instant results", "Expert tips"]
+    },
+    "ielts": {
+      "title": "IELTS Academic",
+      "description": "The English language test required for international universities and immigration.",
+      "features": ["Mock Tests", "Speaking simulation", "Band Score calculator"]
+    }
+  },
+  "cta": {
+    "eyebrow": "Get Started Now",
+    "title": "Master English with an Intelligent System",
+    "description": "Thousands of students have already achieved their goals through ENWIS. Join today and take your first mock test.",
+    "primaryBtn": "Register for Free",
+    "secondaryBtn": "View Pricing",
+    "stats": "10,000+ active users"
+  },
+  "analytics": {
+    "eyebrow": "Our Results",
+    "title": "Numbers Speak Louder",
+    "description": "Thousands of users are systematically improving their knowledge through the ENWIS platform.",
+    "students": "Students",
+    "courses": "Courses",
+    "graduates": "Success Rate",
+    "countries": "Countries"
+  },
+  "faq": {
+    "eyebrow": "Have Questions?",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about the ENWIS platform and its intelligent features.",
+    "items": {
+      "q1": {
+        "question": "What is the ENWIS platform?",
+        "answer": "ENWIS (English Now With Intelligent System) is an ecosystem that simplifies English learning, specifically for CEFR and IELTS preparation, using advanced artificial intelligence."
+      },
+      "q2": {
+        "question": "Is the platform free to use?",
+        "answer": "The platform offers both free and premium features. You can register and start using basic functions for free immediately."
+      },
+      "q3": {
+        "question": "How does AI help in learning?",
+        "answer": "Our AI system analyzes your writing and speaking in real-time, providing detailed feedback and explaining your mistakes like a personal tutor."
+      },
+      "q4": {
+        "question": "Can I track my progress?",
+        "answer": "Yes, through a specialized dashboard, you can monitor all your test results, growth dynamics, and analyze your strengths and weaknesses."
+      },
+      "q5": {
+        "question": "Is there a mobile app available?",
+        "answer": "Currently, our platform is a fully optimized web application that works perfectly on all devices, including smartphones, tablets, and computers."
+      }
+    },
+    "footer": {
+      "title": "Didn't find your answer?",
+      "description": "Our support team is ready to help you with any specific inquiries.",
+      "cta": "Contact Us"
+    }
+  },
+  "ieltsPage": {
+    "hero": {
+      "badge": "IELTS preparation",
+      "title": "Systematic preparation for the IELTS exam",
+      "description": "Practice Listening, Reading, Writing, and Speaking, track your progress, and clearly see weak areas.",
+      "primaryCta": "Get started",
+      "secondaryCta": "About IELTS",
+      "stats": [
+        { "label": "Sections", "value": "4 Skills" },
+        { "label": "Approach", "value": "Structured Prep" },
+        { "label": "Support", "value": "AI Feedback" },
+        { "label": "Focus", "value": "Weak Areas" }
+      ]
+    },
+    "intro": {
+      "eyebrow": "What is IELTS?",
+      "title": "IELTS is an international English language test",
+      "description": "IELTS is an international exam used to measure English proficiency. It may be required for study, work, immigration, and other goals.",
+      "points": [
+        "Accepted by many universities and organizations.",
+        "Measures 4 key skills: Listening, Reading, Writing, and Speaking.",
+        "Academic and General Training formats are available."
+      ]
+    },
+    "format": {
+      "eyebrow": "IELTS format",
+      "title": "The test has 4 core sections",
+      "description": "Each section checks a different skill and requires a different preparation strategy.",
+      "items": [
+        {
+          "title": "Listening",
+          "description": "The ability to understand audio, catch details, and identify key information."
+        },
+        {
+          "title": "Reading",
+          "description": "The skill of analyzing texts quickly, finding the main idea, and locating important details."
+        },
+        {
+          "title": "Writing",
+          "description": "Working on structure, argument development, and grammatical accuracy for Task 1 and Task 2."
+        },
+        {
+          "title": "Speaking",
+          "description": "Evaluating spoken performance through fluency, pronunciation, vocabulary, and coherence."
+        }
+      ]
+    },
+    "scoring": {
+      "eyebrow": "Band score",
+      "title": "IELTS results are scored from 0 to 9",
+      "description": "Each section receives its own band score, and then an overall band score is calculated.",
+      "items": [
+        "Each section is scored separately.",
+        "The overall band shows the final combined result.",
+        "The result helps users understand their current level."
+      ]
+    },
+    "challenges": {
+      "eyebrow": "Common challenges",
+      "title": "These are the areas where learners often struggle during IELTS preparation",
+      "items": [
+        "Missing important details in Listening.",
+        "Poor time management in Reading.",
+        "Weak structure and idea development in Writing.",
+        "Low confidence and fluency in Speaking."
+      ]
+    },
+    "platform": {
+      "eyebrow": "ENWIS & IELTS",
+      "ai": "Artificial Intelligence Engine v2",
+      "ai1": "Real-time",
+      "ai2": "Intelligence",
+      "title_part1": "The perfect",
+      "title_highlight": "ecosystem",
+      "title_part2": "for Band 9.0",
+      "description": "The platform brings together IELTS preparation with sections, exercises, feedback, and progress tracking in one place.",
+      "ai_dec": "Analyze your speech and writing in real-time with the help of artificial intelligence.",
+      "items": [
+        "Separate preparation for Listening, Reading, Writing, and Speaking.",
+        "Mock tests and an exam-like practice environment.",
+        "A progress system that identifies your weak areas.",
+        "Feedback for Writing and other sections.",
+        "An organized and clear preparation flow."
+      ],
+      "cta": "Start IELTS Preparation"
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions about IELTS",
+      "items": [
+        {
+          "question": "Who might need IELTS?",
+          "answer": "IELTS is an internationally recognized exam that measures English language proficiency and is required for various purposes. It is primarily needed by students planning to study abroad, as many universities and colleges require it as part of their admission process. It is also important for professionals who want to work internationally, since employers often use it to verify language skills. For people planning to immigrate (for example, to Canada, Australia, or the United Kingdom), IELTS is often required when applying for visas or residency. In addition, it is needed for international scholarships, grants, and exchange programs. IELTS also serves as an official way to prove English proficiency and helps individuals stay competitive in a global environment."
+        },
+        {
+          "question": "What IELTS score is required?",
+          "answer": "The required IELTS score depends on your goal. Typically, 5.5–6.0 is enough for foundation or entry-level programs, 6.0–6.5 is suitable for most universities and some job opportunities, while 7.0 and above is required for top universities and higher requirements. Each university, country, or program sets its own minimum score, so it is important to determine the target score based on your specific goal."
+        },
+        {
+          "question": "How many sections are there in IELTS?",
+          "answer": "The IELTS exam consists of 4 main sections: Listening, Reading, Writing, and Speaking. The Listening section lasts about 30 minutes and includes 4 audio recordings with related questions. The Reading section takes 60 minutes and contains 3 passages (the format differs for Academic and General versions). The Writing section also lasts 60 minutes and includes 2 tasks (with different requirements depending on the test type). The Speaking section takes 11–14 minutes and is conducted as a face-to-face interview with an examiner, consisting of 3 parts. Each section assesses a specific language skill, and the overall band score is calculated as the average of all four sections."
+        },
+        {
+          "question": "What does the platform provide for IELTS preparation?",
+          "answer": "The platform provides a complete and structured approach to IELTS preparation. It includes practice tests that closely simulate the real exam, along with interactive exercises for Listening, Reading, Writing, and Speaking. Users can assess their current level, track progress, and identify weak areas to focus on improvement. The platform also offers feedback for Writing and Speaking, timed practice sessions, and proven strategies to achieve higher band scores. This allows users to prepare efficiently, independently, and with clear goals."
+        }
+      ]
+    }
+  },
+  "landing": {
+    "stats": {
+      "items": [
+        { "label": "Mock tests", "value": "500+" },
+        { "label": "Users", "value": "12k+" },
+        { "label": "High results", "value": "1.2k" },
+        { "label": "AI response", "value": "Instant" }
+      ]
+    },
+    "tracks": {
+      "items": [
+        {
+          "title": "IELTS",
+          "description": "A track for IELTS practice, mock tests, and result analysis."
+        },
+        {
+          "title": "CEFR",
+          "description": "A track for CEFR multilevel preparation, level visibility, and progress tracking."
+        },
+        {
+          "title": "DTM",
+          "description": "A track for general test preparation and result tracking."
+        },
+        {
+          "title": "Writing",
+          "description": "A track for writing practice, feedback, and written work improvement."
+        }
+      ],
+      "openTrack": "Open track"
+    },
+    "experience": {
+      "title": "Real exam atmosphere. Anywhere.",
+      "items": [
+        {
+          "title": "Real mock environment",
+          "description": "Work in an exam-like environment and feel realistic time pressure."
+        },
+        {
+          "title": "AI speaking practice",
+          "description": "Practice speaking with AI support and understand your current level."
+        },
+        {
+          "title": "Writing analytics",
+          "description": "Get feedback on grammar, coherence, and overall writing quality."
+        }
+      ]
+    },
+    "process": {
+      "title": "How it works",
+      "items": [
+        {
+          "title": "Register",
+          "description": "Choose your language and create your profile quickly."
+        },
+        {
+          "title": "Start the test",
+          "description": "Begin preparation through mock tests and practical exercises."
+        },
+        {
+          "title": "Improve results",
+          "description": "Use feedback, progress, and analytics to raise your score."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "The future of exam preparation starts here.",
+      "description": "Do not just work harder — prepare smarter and with more structure. Start the platform today.",
+      "cta": "Create account"
+    }
+  }
+}

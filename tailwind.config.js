@@ -11,10 +11,13 @@ module.exports = {
     aurora: 'aurora 60s linear infinite',
   },
   keyframes: {
-    aurora: {
-      from: { backgroundPosition: '50% 50%, 50% 50%' },
-      to: { backgroundPosition: '350% 50%, 350% 50%' },
+    shimmer: {
+      '0%': { transform: 'translateX(-100%)' },
+      '100%': { transform: 'translateX(100%)' },
     },
+  },
+  animation: {
+    shimmer: 'shimmer 1.5s infinite linear',
   },
   theme: {
     extend: {

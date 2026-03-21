@@ -1,0 +1,409 @@
+{
+  "meta": {
+    "home": {
+      "title": "ENWIS — barcha testlar uchun yagona tayyorgarlik platformasi",
+      "description": "ENWIS — IELTS, CEFR, DTM va boshqa testlar uchun tayyorgarlik platformasi."
+    }
+  },
+  "common": {
+    "login": "Kirish"
+  },
+  "navigation": {
+    "features": "Imkoniyatlar",
+    "tests": "Testlar",
+    "pricing": "Narxlar",
+    "business": "Biznes",
+    "faq": "Savollar",
+    "ielts": "IELTS",
+    "cefr": "CEFR",
+    "dtm": "DTM"
+  },
+  "hero": {
+    "badge": "ENWIS platformasi",
+    "title": "Barcha testlar uchun yagona tayyorgarlik platformasi",
+    "description": "IELTS, CEFR, DTM va boshqa test yo‘nalishlari uchun tayyorlanish, o‘z holatini ko‘rish va natijani tahlil qilishni bitta joyga yig‘amiz.",
+    "primaryCta": "Boshlash",
+    "secondaryCta": "Imkoniyatlarni ko‘rish",
+    "proofs": {
+      "tracksText": "IELTS / CEFR / DTM",
+      "progressText": "Kuchsiz joylar aniq",
+      "focusText": "Tartibli oqim"
+    },
+    "preview": {
+      "floatingTopTitle": "AI",
+      "floatingTopText": "Feedback",
+      "floatingBottomTitle": "Progress",
+      "floatingBottomText": "Analytics",
+      "tabs": ["IELTS", "CEFR", "DTM"],
+      "leftCardLabel": "Yo‘nalishlar",
+      "tiles": [
+        { "title": "IELTS", "subtitle": "Listening / Reading" },
+        { "title": "CEFR", "subtitle": "Level / Skills" },
+        { "title": "DTM", "subtitle": "General tests" }
+      ],
+      "rightCardLabel": "Platforma",
+      "rightCardTitle": "Hammasi bitta joyda",
+      "rightCardDescription": "Reading, listening, speaking, writing, feedback va progress bitta ekotizim ichida ishlaydi.",
+      "readinessLabel": "Tizim tayyorligi",
+      "readinessValue": "91%",
+      "badges": ["Speaking", "Writing", "Assessment"],
+      "badgeDescriptions": [
+        "AI yordamida speaking oqimi",
+        "Tartibli writing feedback",
+        "Yagona test tizimi"
+      ]
+    }
+  },
+  "tracks": {
+    "eyebrow": "Test yo‘nalishlari",
+    "title": "Har xil maqsadlar uchun bitta platforma",
+    "description": "ENWIS turli test formatlarini bitta tizimga yig‘adi va kerakli yo‘nalishni tez topishga yordam beradi.",
+    "items": {
+      "ielts": {
+        "description": "Listening, Reading, Writing va Speaking bo‘limlari bo‘yicha tayyorlanish uchun."
+      },
+      "cefr": {
+        "description": "Darajani tekshirish va bosqichma-bosqich tayyorlanish uchun."
+      },
+      "dtm": {
+        "description": "Mahalliy test formatlari va umumiy tayyorlov jarayonlari uchun."
+      }
+    }
+  },
+  "features": {
+    "eyebrow": "Imkoniyatlar",
+    "title": "Tayyorlanish jarayonini tushunarli qiladigan imkoniyatlar",
+    "description": "Platforma test ishlashning o‘zi bilan cheklanmaydi. U foydalanuvchiga progress, feedback va oqimni ham ko‘rsatadi.",
+    "items": [
+      {
+        "title": "Barcha testlar bir joyda",
+        "description": "Bir nechta test yo‘nalishlarini bitta platformada ko‘rish va boshqarish mumkin."
+      },
+      {
+        "title": "Natija va tahlil",
+        "description": "Faqat ball emas, qaysi bo‘limlar sustligi va keyingi qadam ham ko‘rinadi."
+      },
+      {
+        "title": "Tartibli feedback",
+        "description": "Writing yoki boshqa bo‘limlar bo‘yicha foydali va tushunarli fikrlar olinadi."
+      }
+    ]
+  },
+  "benefits": {
+    "eyebrow": "Nima uchun ENWIS?",
+    "title": "Tarqoq vositalar o‘rniga bitta toza tajriba",
+    "description": "ENWIS foydalanuvchiga testlarni topish, ishlash va natijani tushunishni bitta oqimda beradi.",
+    "items": [
+      "Bir nechta test yo‘nalishlari",
+      "AI yordamida tahlil",
+      "Progress va tayyorlik ko‘rinishi"
+    ]
+  },
+  "footer": {
+    "description": "ENWIS — testlarga tayyorlanish uchun zamonaviy va tushunarli platforma.",
+    "sections": {
+      "navigation": "Sahifalar",
+      "tests": "Testlar"
+    },
+    "links": {
+      "home": "Bosh sahifa",
+      "pricing": "Narxlar",
+      "business": "Biznes"
+    },
+    "copyright": "Barcha huquqlar himoyalangan."
+  },
+  "exams": {
+    "eyebrow": "Imtihonlarga tayyorgarlik",
+    "title": "Bilimingizni xalqaro standartlar asosida tekshiring",
+    "description": "CEFR, IELTS va Milliy sertifikat imtihonlari uchun maxsus ishlab chiqilgan simulyatsiya testlari yordamida natijangizni yaxshilang.",
+    "viewAll": "Barcha imtihonlar",
+    "startTest": "Testni boshlash",
+    "cefr": {
+      "title": "CEFR (B1/B2/C1)",
+      "description": "Davlat test markazi standarti asosidagi milliy sertifikat imtihonlari.",
+      "features": [
+        "Grammatika va lug'at",
+        "Reading & Listening",
+        "Writing tahlili"
+      ]
+    },
+    "multilevel": {
+      "title": "Multi-Level",
+      "description": "O'zbekistonda amal qiluvchi barcha darajalar uchun yagona test tizimi.",
+      "features": [
+        "Real imtihon muhiti",
+        "Tezkor natijalar",
+        "Ekspert maslahatlari"
+      ]
+    },
+    "ielts": {
+      "title": "IELTS Academic",
+      "description": "Xalqaro universitetlar va immigratsiya uchun zarur bo'lgan ingliz tili imtihoni.",
+      "features": [
+        "Mock Testlar",
+        "Speaking simulyatsiyasi",
+        "Band Score hisoblagich"
+      ]
+    }
+  },
+  "cta": {
+    "eyebrow": "Hoziroq boshlang",
+    "title": "Ingliz tilini intellektual tizim bilan o'rganing",
+    "description": "Minglab talabalar allaqachon ENWIS orqali o'z maqsadlariga erishishdi. Siz ham bugun qo'shiling va birinchi mock testni topshiring.",
+    "primaryBtn": "Bepul ro'yxatdan o'tish",
+    "secondaryBtn": "Tariflar bilan tanishish",
+    "stats": "10,000+ faol foydalanuvchilar"
+  },
+  "analytics": {
+    "eyebrow": "Bizning natijalar",
+    "title": "Raqamlar gapirganda",
+    "description": "ENWIS platformasi orqali minglab foydalanuvchilar o'z bilimlarini tizimli ravishda oshirib kelmoqdalar.",
+    "students": "Talabalar",
+    "courses": "Kurslar",
+    "graduates": "Muvaffaqiyat",
+    "countries": "Davlatlar"
+  },
+  "faq": {
+    "eyebrow": "Savollaringiz bormi?",
+    "title": "Ko'p so'raladigan savollar",
+    "description": "ENWIS platformasi va uning imkoniyatlari haqida eng ko'p beriladigan savollarga javoblar.",
+    "items": {
+      "q1": {
+        "question": "ENWIS platformasi nima?",
+        "answer": "ENWIS (English Now With Intelligent System) — bu sun'iy intellekt yordamida ingliz tilini, ayniqsa CEFR va IELTS imtihonlariga tayyorlanishni osonlashtiruvchi ekotizimdir."
+      },
+      "q2": {
+        "question": "Platformadan foydalanish bepulmi?",
+        "answer": "Platformada ham bepul, ham premium imkoniyatlar mavjud. Siz ro'yxatdan o'tib, asosiy funksiyalardan bepul foydalanishni boshlashingiz mumkin."
+      },
+      "q3": {
+        "question": "AI qanday yordam beradi?",
+        "answer": "Bizning sun'iy intellekt tizimimiz sizning insho (writing) va nutqingizni (speaking) real vaqt rejimida tekshirib, xatolaringizni tushuntirib beradi."
+      },
+      "q4": {
+        "question": "Natijalarimni kuzatib borsam bo'ladimi?",
+        "answer": "Ha, maxsus dashboard orqali barcha test natijalaringiz, o'sish dinamikangiz va kuchli/kuchsiz tomonlaringizni tahlil qilib borasiz."
+      },
+      "q5": {
+        "question": "Mobil ilova mavjudmi?",
+        "answer": "Hozirda platformamiz web-ilova sifatida barcha qurilmalar (telefon, planshet, kompyuter) uchun to'liq moslashtirilgan."
+      }
+    },
+    "footer": {
+      "title": "Savolingizga javob topmadingizmi?",
+      "description": "Bizning qo'llab-quvvatlash jamoamiz sizga yordam berishga tayyor.",
+      "cta": "Biz bilan bog'laning"
+    }
+  },
+  "ieltsAbout": {
+    "heroTag": "Global Standard",
+    "heroTitle": "IELTS Haqida Hammasi",
+    "heroDesc": "1989-yildan beri dunyo bo'ylab millionlab insonlar hayotini o'zgartirib kelayotgan imtihon tizimi.",
+    "section1Title": "IELTS o'zi nima?",
+    "section1Desc": "IELTS (International English Language Testing System) — ingliz tilida so'zlashuvchi mamlakatlarda ta'lim olish, migratsiya va ishga joylashish uchun dunyodagi eng mashhur testdir.",
+    "modulesTitle": "Imtihon Bloklari",
+    "listening": {
+      "t": "Listening",
+      "d": "4 ta bo'lim, 40 ta savol. Audio faqat bir marta qo'yib beriladi.",
+      "time": "30 min"
+    },
+    "reading": {
+      "t": "Reading",
+      "d": "3 ta matn, 40 ta savol. Akademik va umumiy yo'nalishlar farq qiladi.",
+      "time": "60 min"
+    },
+    "writing": {
+      "t": "Writing",
+      "d": "2 ta topshiriq: Grafik tahlili (Task 1) va Essay (Task 2).",
+      "time": "60 min"
+    },
+    "speaking": {
+      "t": "Speaking",
+      "d": "Imtihon oluvchi bilan yuzma-yuz suhbat. 3 ta qismdan iborat.",
+      "time": "11-14 min"
+    },
+    "scoringTitle": "Baholash Tizimi (Band Scores)",
+    "scoringDesc": "IELTS 0 dan 9 gacha bo'lgan shkala bo'yicha baholanadi. Har bir yarim ball (0.5) muhim ahamiyatga ega.",
+    "faqTitle": "Ko'p beriladigan savollar",
+    "cta": "Tayyorgarlikni boshlash"
+  },
+  "ieltsPage": {
+    "hero": {
+      "badge": "IELTS tayyorlov",
+      "title": "IELTS imtihoniga tizimli tayyorlaning",
+      "description": "Listening, Reading, Writing va Speaking bo‘limlari bo‘yicha mashq qiling, progressni kuzating va kuchsiz joylarni aniq ko‘ring.",
+      "primaryCta": "Boshlash",
+      "secondaryCta": "IELTS haqida",
+      "stats": [
+        { "label": "Bo‘limlar", "value": "4 Skills" },
+        { "label": "Tayyorlov", "value": "Structured Prep" },
+        { "label": "Yordam", "value": "AI Feedback" },
+        { "label": "Fokus", "value": "Weak Areas" }
+      ]
+    },
+    "intro": {
+      "eyebrow": "IELTS nima?",
+      "title": "IELTS ingliz tilini baholovchi xalqaro test",
+      "description": "IELTS ingliz tilini bilish darajasini tekshiruvchi xalqaro imtihon bo‘lib, u o‘qish, ish, immigratsiya va boshqa maqsadlar uchun talab qilinishi mumkin.",
+      "points": [
+        "Ko‘plab universitetlar va tashkilotlar tomonidan qabul qilinadi.",
+        "4 ta asosiy ko‘nikmani tekshiradi: Listening, Reading, Writing, Speaking.",
+        "Academic va General Training formatlari mavjud."
+      ]
+    },
+    "format": {
+      "eyebrow": "IELTS formati",
+      "title": "Test 4 ta asosiy bo‘limdan iborat",
+      "description": "Har bir bo‘lim alohida ko‘nikmani tekshiradi va tayyorlanishda turli strategiyalarni talab qiladi.",
+      "items": [
+        {
+          "title": "Listening",
+          "description": "Audio materiallarni tushunish, detal va asosiy ma’lumotlarni ushlash ko‘nikmasi."
+        },
+        {
+          "title": "Reading",
+          "description": "Matnlarni tez tahlil qilish, asosiy g‘oya va kerakli ma’lumotni topish qobiliyati."
+        },
+        {
+          "title": "Writing",
+          "description": "Task 1 va Task 2 bo‘yicha fikrni tuzilgan, aniq va grammatik to‘g‘ri ifodalash."
+        },
+        {
+          "title": "Speaking",
+          "description": "Fluency, pronunciation, vocabulary va coherence bo‘yicha og‘zaki nutqni baholash."
+        }
+      ]
+    },
+    "scoring": {
+      "eyebrow": "Band score",
+      "title": "IELTS natijasi 0 dan 9 gacha baholanadi",
+      "description": "Har bir bo‘lim uchun alohida band score beriladi va ulardan overall band hosil bo‘ladi.",
+      "items": [
+        "Har section alohida baholanadi.",
+        "Overall band umumiy natijani ko‘rsatadi.",
+        "Natija foydalanuvchining hozirgi darajasini tushunishga yordam beradi."
+      ]
+    },
+    "challenges": {
+      "eyebrow": "Ko‘p uchraydigan qiyinchiliklar",
+      "title": "IELTS tayyorlovida o‘quvchilar ko‘pincha shu joylarda qiynaladi",
+      "items": [
+        "Listening’da kerakli detailni o‘tkazib yuborish.",
+        "Reading’da vaqtni noto‘g‘ri taqsimlash.",
+        "Writing’da structure va idea development yetishmasligi.",
+        "Speaking’da confidence va fluency pasayishi."
+      ]
+    },
+    "platform": {
+      "eyebrow": "ENWIS va IELTS",
+      "ai": "V2 sun'iy intellekt dvigateli",
+      "ai1": "Real vaqtda",
+      "ai2": "operatsion ma'lumotlar",
+      "title_part1": "Band 9.0 sari",
+      "title_highlight": "mukammal",
+      "title_part2": "ekotizim",
+      "description": "Platforma IELTS tayyorlovini bo‘limlar, mashqlar, feedback va progress bilan bitta joyga yig‘adi.",
+      "ai_dec": "Sun'iy intellekt yordamida nutqingiz va yozishmalaringizni real vaqtda tahlil qiling.",
+      "items": [
+        "Listening, Reading, Writing va Speaking bo‘yicha alohida tayyorlov.",
+        "Mock tests va imtihonga yaqin mashq muhiti.",
+        "Kuchsiz joylarni ko‘rsatadigan progress tizimi.",
+        "Writing va boshqa bo‘limlar uchun feedback.",
+        "Tartibli va tushunarli tayyorlov oqimi."
+      ],
+      "cta": "IELTS tayyorlovni boshlash"
+    },
+    "faq": {
+      "eyebrow": "Savollar",
+      "title": "IELTS bo‘yicha ko‘p so‘raladigan savollar",
+      "items": [
+        {
+          "question": "IELTS kimlar uchun kerak bo‘lishi mumkin?",
+          "answer": "IELTS ingliz tilini bilish darajasini xalqaro miqyosda baholovchi imtihon bo‘lib, u turli maqsadlar uchun zarur bo‘lishi mumkin. Avvalo, chet elda o‘qishni rejalashtirayotgan talabalar uchun IELTS ko‘plab universitet va kollejlar tomonidan majburiy talab sifatida qo‘yiladi. Shuningdek, xorijda ishlashni istagan mutaxassislar uchun ham IELTS sertifikati ish beruvchilar tomonidan til bilish darajasini tasdiqlovchi muhim hujjat hisoblanadi. Immigratsiya qilishni rejalashtirganlar uchun (masalan, Kanada, Avstraliya yoki Buyuk Britaniya) IELTS ko‘pincha viza va yashash ruxsatnomasini olish jarayonida talab etiladi. Bundan tashqari, xalqaro grantlar, stipendiyalar va almashinuv dasturlarida qatnashmoqchi bo‘lganlar uchun ham IELTS zarur bo‘ladi. U yana ingliz tilini rasmiy darajada tasdiqlash va global darajada raqobatbardosh bo‘lish uchun ham foydali hisoblanadi."
+        },
+        {
+          "question": "IELTSdan nechchi ball olish kerak?",
+          "answer": "Kerakli IELTS bali sizning maqsadingizga bog‘liq bo‘ladi. Odatda 5.5–6.0 foundation yoki boshlang‘ich darajadagi dasturlar uchun yetarli, 6.0–6.5 ko‘plab universitet va ish imkoniyatlari uchun mos keladi, 7.0 va undan yuqori esa nufuzli universitetlar va yuqori talablar uchun kerak bo‘ladi. Har bir universitet, davlat yoki dastur o‘z minimal talabini belgilaydi, shuning uchun aniq maqsadga qarab kerakli ballni aniqlash muhim."
+        },
+        {
+          "question": "IELTS nechta bo‘limdan iborat?",
+          "answer": "IELTS imtihoni 4 ta asosiy bo‘limdan iborat: Listening, Reading, Writing va Speaking. Listening bo‘limi taxminan 30 daqiqa davom etadi va 4 ta audio yozuv asosida savollarga javob berishni talab qiladi. Reading bo‘limi 60 daqiqa davom etadi va 3 ta matn asosida savollar beriladi (Academic va General turlari farq qiladi). Writing bo‘limi 60 daqiqa bo‘lib, 2 ta yozma topshiriqdan iborat (Academic va General uchun vazifalar turlicha). Speaking bo‘limi esa 11–14 daqiqa davom etadi va 3 qismdan iborat bo‘lib, imtihonchi bilan yuzma-yuz suhbat shaklida o‘tadi. Har bir bo‘lim ingliz tilining alohida ko‘nikmasini baholaydi va yakuniy ball ushbu 4 qism natijalarining o‘rtacha qiymati sifatida hisoblanadi."
+        },
+        {
+          "question": "Platforma IELTS tayyorlovida nima beradi?",
+          "answer": "Platforma IELTS tayyorlovida foydalanuvchilarga to‘liq va tizimli tayyorgarlik imkonini beradi. Unda Listening, Reading, Writing va Speaking bo‘yicha real imtihonga yaqin testlar, interaktiv mashqlar va amaliy topshiriqlar mavjud. Foydalanuvchilar o‘z darajasini aniqlash, natijalarini kuzatish va zaif tomonlarini aniqlab, shu yo‘nalishda ishlash imkoniga ega bo‘ladi. Writing va Speaking uchun baholash va feedback olish, vaqt bilan ishlash (real exam simulation), shuningdek strategiyalar va tushuntirishlar orqali yuqori ball olishga yordam beradi. Platforma orqali foydalanuvchi mustaqil, samarali va aniq maqsad bilan IELTSga tayyorlana oladi."
+        }
+      ]
+    }
+  },
+  "landing": {
+    "stats": {
+      "items": [
+        { "label": "Mock testlar", "value": "500+" },
+        { "label": "Foydalanuvchilar", "value": "12k+" },
+        { "label": "Yuqori natijalar", "value": "1.2k" },
+        { "label": "AI javobi", "value": "Tezkor" }
+      ]
+    },
+    "tracks": {
+      "items": [
+        {
+          "title": "IELTS",
+          "description": "IELTS bo‘yicha mashq, mock test va natijalarni tahlil qilish uchun yo‘nalish."
+        },
+        {
+          "title": "CEFR",
+          "description": "CEFR multilevel tayyorlov, til darajasi va progressni ko‘rish uchun yo‘nalish."
+        },
+        {
+          "title": "DTM",
+          "description": "Umumiy test tayyorlovini boshqarish va natijalarni kuzatish uchun yo‘nalish."
+        },
+        {
+          "title": "Writing",
+          "description": "Writing bo‘yicha mashq, feedback va yozma ish ustida ishlash uchun yo‘nalish."
+        }
+      ],
+      "openTrack": "Yo‘nalishni ochish"
+    },
+    "experience": {
+      "title": "Haqiqiy imtihon hissi. Istalgan joyda.",
+      "items": [
+        {
+          "title": "Real mock muhit",
+          "description": "Imtihonga yaqin muhitda ishlash va vaqt bosimini his qilish."
+        },
+        {
+          "title": "AI speaking mashqi",
+          "description": "Speaking bo‘yicha AI yordamida mashq qilish va o‘z holatini ko‘rish."
+        },
+        {
+          "title": "Writing tahlili",
+          "description": "Yozma ishlarda grammar, coherence va umumiy sifat bo‘yicha feedback olish."
+        }
+      ]
+    },
+    "process": {
+      "title": "Qanday ishlaydi",
+      "items": [
+        {
+          "title": "Ro‘yxatdan o‘ting",
+          "description": "Tilni tanlang va qisqa vaqt ichida profilingizni yarating."
+        },
+        {
+          "title": "Testni boshlang",
+          "description": "Mock testlar va mashqlar orqali tayyorlovni boshlang."
+        },
+        {
+          "title": "Natijani yaxshilang",
+          "description": "Feedback, progress va analytics yordamida natijangizni oshiring."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Imtihon tayyorlovining kelajagi shu yerda boshlanadi.",
+      "description": "Faqat ko‘proq ishlamang, tartibli va aqlli tayyorlaning. Bugunoq platformani boshlang.",
+      "cta": "Hisob yaratish"
+    }
+  }
+}
