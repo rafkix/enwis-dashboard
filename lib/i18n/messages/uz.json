@@ -10,6 +10,7 @@
   },
   "navigation": {
     "features": "Imkoniyatlar",
+    "news": "Yangiliklar",
     "tests": "Testlar",
     "pricing": "Narxlar",
     "business": "Biznes",
@@ -70,6 +71,20 @@
       }
     }
   },
+  "news": {
+      "emptyTitle": "Yangiliklar topilmadi",
+      "emptyDesc": "Hozircha e’lon qilingan yangiliklar mavjud emas.",
+      "readMore": "Batafsil",
+      "hide": "Yopish",
+      "views": "Ko‘rish",
+      "prev": "Oldingi",
+      "next": "Keyingi",
+      "articleLabel": "Maqola",
+      "shareLabel": "Ulashish",
+      "relatedTitle": "Yana o‘qish",
+      "backToList": "Yangiliklarga qaytish",
+      "ctaDefault": "Batafsil"
+    },
   "features": {
     "eyebrow": "Imkoniyatlar",
     "title": "Tayyorlanish jarayonini tushunarli qiladigan imkoniyatlar",

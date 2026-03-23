@@ -105,8 +105,6 @@ export async function generateMetadata({
             index: true,
             follow: true,
         },
-
-        themeColor: "#ffffff",
     };
 }
 

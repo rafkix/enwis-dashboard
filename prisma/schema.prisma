@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model News {
+  id                  String    @id @default(cuid())
+  type                String
+  coverImage          String?
+  sponsorName         String?
+  sponsorUrl          String?
+  ctaLabel            String?
+  ctaUrl              String?
+  websitePublished    Boolean   @default(false)
+  telegramPublished   Boolean   @default(false)
+  websitePublishedAt  DateTime?
+  telegramPublishedAt DateTime?
+  telegramMessageId   String?
+  views               Int       @default(0)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  translations NewsTranslation[]
+  media        NewsMedia[]
+  shortLink    ShortLink?
+}
+
+model NewsTranslation {
+  id          String  @id @default(cuid())
+  newsId      String
+  locale      String
+  title       String
+  slug        String
+  excerpt     String?
+  contentJson String
+
+  news News @relation(fields: [newsId], references: [id], onDelete: Cascade)
+
+  @@unique([newsId, locale])
+  @@unique([locale, slug])
+  @@index([locale])
+  @@index([newsId])
+}
+
+model NewsMedia {
+  id        String  @id @default(cuid())
+  newsId    String
+  type      String // image | video | youtube | file
+  url       String
+  thumbnail String?
+  alt       String?
+  caption   String?
+  sortOrder Int     @default(0)
+
+  news News @relation(fields: [newsId], references: [id], onDelete: Cascade)
+
+  @@index([newsId, sortOrder])
+}
+
+model ShortLink {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  targetUrl String
+  newsId    String?  @unique
+  clicks    Int      @default(0)
+  createdAt DateTime @default(now())
+
+  news News? @relation(fields: [newsId], references: [id], onDelete: SetNull)
+}

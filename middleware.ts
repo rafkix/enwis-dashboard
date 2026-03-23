@@ -1,28 +1,52 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { locales, defaultLocale } from "@/lib/i18n/locales"; // Yo'lni o'zingizniki bilan tekshiring
+import { defaultLocale, locales } from "@/lib/i18n/locales";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const isStaticFile = /\.[^/]+$/.test(pathname);
 
-  // 1. Tekshiramiz: Pathname ichida tillar bormi? (/uz, /ru, /en)
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  // 1) Static va next fayllarni o'tkazib yuboramiz
+  if (
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/_next") ||
+    isStaticFile
+  ) {
+    return NextResponse.next();
+  }
+
+  // 2) Admin route'larni alohida himoyalaymiz
+  if (pathname.startsWith("/admin")) {
+    // login page'ni o'zini ochiq qoldiramiz
+    if (pathname === "/admin/login") {
+      return NextResponse.next();
+    }
+
+    const adminToken = request.cookies.get("admin_token")?.value;
+
+    if (!adminToken || adminToken !== process.env.ADMIN_SECRET) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/admin/login";
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next();
+  }
+
+  // 3) Qolgan route'lar uchun locale check
+  const hasLocale = locales.some(
+    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   );
 
-  // 2. Agar til bo'lsa, hech narsa qilmaymiz (yo'lni davom ettiramiz)
-  if (pathnameHasLocale) return;
+  if (!hasLocale) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${defaultLocale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
 
-  // 3. Agar til bo'lmasa, defaultLocale (/uz) ga redirect qilamiz
-  request.nextUrl.pathname = `/${defaultLocale}${pathname}`;
-
-  // Masalan: localhost:3000 -> localhost:3000/uz
-  return NextResponse.redirect(request.nextUrl);
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    // Barcha ichki api va static fayllarni o'tkazib yuborish
-    "/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|.*\\.png$).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

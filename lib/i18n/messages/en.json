@@ -10,6 +10,7 @@
   },
   "navigation": {
     "features": "Features",
+    "news": "News",
     "tests": "Tests",
     "pricing": "Pricing",
     "business": "Business",
@@ -69,6 +70,20 @@
         "description": "For local test formats and broader preparation flows."
       }
     }
+  },
+  "news": {
+    "emptyTitle": "No news found",
+    "emptyDesc": "There is no published news yet.",
+    "readMore": "More detailed",
+    "hide": "Closure",
+    "views": "The Vision",
+    "prev": "Previous",
+    "next": "Next",
+    "articleLabel": "Article",
+    "shareLabel": "To share",
+    "relatedTitle": "Read more",
+    "backToList": "Go back to the news",
+    "ctaDefault": "More detailed"
   },
   "features": {
     "eyebrow": "Features",

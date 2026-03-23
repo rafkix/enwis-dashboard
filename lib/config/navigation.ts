@@ -2,6 +2,7 @@ import type { Locale } from "@/lib/i18n/locales";
 
 export type MarketingNavKey =
   | "features"
+  | "news"
   | "tests"
   | "pricing"
   | "business"
@@ -17,7 +18,7 @@ export type MarketingSubNavItem = {
 };
 
 export type MarketingNavItem = {
-  key: "features" | "tests" | "pricing" | "business" | "faq";
+  key: "features" | "news" | "tests" | "pricing" | "business" | "faq";
   href?: string;
   match?: string[];
   children?: MarketingSubNavItem[];
@@ -28,6 +29,11 @@ export function getMarketingNavigation(locale: Locale): MarketingNavItem[] {
     {
       key: "features",
       href: `/${locale}#features`,
+      match: [`/${locale}`],
+    },
+    {
+      key: "news",
+      href: `/${locale}/news`,
       match: [`/${locale}`],
     },
     {
