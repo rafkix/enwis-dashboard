@@ -476,13 +476,5 @@
         }
       ]
     }
-  },
-  "errors": {
-    "notFound": {
-      "title": "Sahifa topilmadi",
-      "description": "Kechirasiz, siz izlayotgan sahifa mavjud emas yoki o‘chirilgan.",
-      "home": "Bosh sahifaga",
-      "back": "Ortga qaytish"
-    }
   }
 }

@@ -436,13 +436,5 @@
         }
       ]
     }
-  },
-  "errors": {
-    "notFound": {
-      "title": "Page not found",
-      "description": "Sorry, the page you are looking for does not exist.",
-      "home": "Go home",
-      "back": "Go back"
-    }
   }
 }

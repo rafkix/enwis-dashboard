@@ -29,11 +29,11 @@ export default function ErrorPage({
                         </div>
 
                         <h1 className="mt-6 text-4xl font-[1000] leading-[0.98] tracking-[-0.05em] text-slate-950 sm:text-5xl lg:text-6xl">
-                            Nimadir noto‘g‘ri ketdi
+                            Something went wrong
                         </h1>
 
                         <p className="mt-5 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
-                            Sahifani qayta yuklab ko‘ring yoki bosh sahifaga qayting.
+                            Please try reloading the page or return to the home page.
                         </p>
 
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:items-start">
@@ -43,7 +43,7 @@ export default function ErrorPage({
                                 className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#109988] px-6 text-sm font-black text-white shadow-[0_20px_40px_-16px_rgba(16,153,136,0.35)] transition-all duration-300 hover:scale-[1.02] hover:bg-[#0d7f72] active:scale-[0.98]"
                             >
                                 <RefreshCcw size={18} />
-                                Qayta yuklash
+                                Try again
                             </button>
 
                             <Link
@@ -51,7 +51,7 @@ export default function ErrorPage({
                                 className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white/80 px-6 text-sm font-black text-slate-700 backdrop-blur-md transition-all duration-300 hover:bg-slate-50 active:scale-[0.98]"
                             >
                                 <Home size={18} />
-                                Bosh sahifa
+                                Go home
                             </Link>
                         </div>
                     </div>

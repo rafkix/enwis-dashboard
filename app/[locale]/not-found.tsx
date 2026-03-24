@@ -1,18 +1,9 @@
 import Link from "next/link";
 import { Home } from "lucide-react";
-import { getDictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
 import { BackButton } from "@/components/system/back-button";
 import { NotFoundIllustration } from "@/components/system/not-found-illustration";
 
-export default async function NotFound({
-    params,
-}: {
-    params: Promise<{ locale: Locale }>;
-}) {
-    const { locale } = await params;
-    const dict = await getDictionary(locale);
-
+export default function NotFound() {
     return (
         <main className="relative min-h-screen overflow-hidden bg-[#fafdfc] text-slate-900">
             <PageBackground />
@@ -25,23 +16,23 @@ export default async function NotFound({
                         </div>
 
                         <h1 className="mt-6 text-4xl font-[1000] leading-[0.98] tracking-[-0.05em] text-teal-950 sm:text-5xl lg:text-6xl">
-                            {dict.errors.notFound.title}
+                            Page not found
                         </h1>
 
                         <p className="mt-5 max-w-lg text-base leading-7 text-slate-600 sm:text-lg">
-                            {dict.errors.notFound.description}
+                            Sorry, the page you are looking for does not exist or has been moved.
                         </p>
 
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:items-start">
                             <Link
-                                href={`/${locale}`}
+                                href="/"
                                 className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#109988] px-6 text-sm font-black text-white shadow-[0_20px_40px_-16px_rgba(16,153,136,0.35)] transition-all duration-300 hover:scale-[1.02] hover:bg-[#0d7f72] active:scale-[0.98]"
                             >
                                 <Home size={18} />
-                                {dict.errors.notFound.home}
+                                Go home
                             </Link>
 
-                            <BackButton label={dict.errors.notFound.back} />
+                            <BackButton label="Go back" />
                         </div>
                     </div>
 
