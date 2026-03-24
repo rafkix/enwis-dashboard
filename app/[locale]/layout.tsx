@@ -5,6 +5,7 @@ import { Footer } from "@/components/marketing/footer";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isValidLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { siteConfig } from "@/lib/config/site";
+import { Analytics } from "@vercel/analytics/next"
 
 export async function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -125,6 +126,7 @@ export default async function LocaleLayout({
 
     return (
         <div className="relative flex min-h-screen flex-col">
+            <Analytics/>
             <Header locale={locale as Locale} dict={dict} />
             <main className="flex-1">{children}</main>
             <Footer locale={locale as Locale} dict={dict} />
