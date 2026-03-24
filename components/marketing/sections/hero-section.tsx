@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import {
     ArrowRight,
     Sparkles,
@@ -10,7 +11,7 @@ import {
     Headphones,
     CheckCircle2,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import { siteConfig } from "@/lib/config/site";
@@ -20,12 +21,33 @@ type HeroSectionProps = {
     dict: Dictionary;
 };
 
-export function HeroSection({ locale, dict }: HeroSectionProps) {
-    return (
-        <section className="relative overflow-hidden bg-[#fafdfc] text-slate-900">
-            {/* 1. Yangilangan Navro'z uslubidagi fon */}
-            <HeroBackground />
+const TITLE_ACCENTS = [
+    "from-teal-600 via-emerald-500 to-cyan-500",
+    "from-emerald-600 via-teal-500 to-lime-500",
+    "from-cyan-600 via-teal-500 to-emerald-500",
+    "from-teal-700 via-cyan-500 to-emerald-400",
+];
 
+export function HeroSection({ locale, dict }: HeroSectionProps) {
+    const titleWords = useMemo(
+        () => dict.hero.title.split(" ").filter(Boolean),
+        [dict.hero.title]
+    );
+
+    const [activeWordIndex, setActiveWordIndex] = useState(0);
+
+    useEffect(() => {
+        if (titleWords.length <= 1) return;
+
+        const interval = window.setInterval(() => {
+            setActiveWordIndex((prev) => (prev + 1) % titleWords.length);
+        }, 1400);
+
+        return () => window.clearInterval(interval);
+    }, [titleWords.length]);
+
+    return (
+        <section className="relative overflow-hidden text-slate-900">
             <div className="relative z-10 mx-auto w-full max-w-[1520px] px-6 pb-20 pt-28 sm:px-8 md:px-10 md:pb-24 md:pt-32 lg:px-12 xl:px-16 xl:pb-28 xl:pt-36">
                 <div className="grid items-center gap-14 lg:gap-16 xl:grid-cols-[0.88fr_1.12fr] xl:gap-20">
                     <motion.div
@@ -34,14 +56,53 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="max-w-[620px] xl:max-w-[640px]"
                     >
-                        {/* Bayramona Badge */}
-                        <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-teal-700 backdrop-blur">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-teal-200/80 bg-white/70 px-4 py-2 text-[11px] font-black uppercase tracking-[0.24em] text-teal-700 backdrop-blur-md">
                             <Sparkles size={14} className="text-teal-500" />
                             {dict.hero.badge}
                         </div>
 
-                        <h1 className="mt-7 max-w-[12ch] text-5xl font-[1000] leading-[0.95] tracking-[-0.06em] text-teal-950 sm:text-6xl lg:text-7xl xl:text-[84px]">
-                            {dict.hero.title}
+                        <h1 className="mt-7 max-w-[12ch] text-5xl font-[1000] leading-[0.95] tracking-[-0.06em] sm:text-6xl lg:text-7xl xl:text-[84px]">
+                            <span className="flex flex-wrap gap-x-[0.22em] gap-y-[0.06em]">
+                                {titleWords.map((word, index) => {
+                                    const isActive = index === activeWordIndex;
+                                    const gradientClass =
+                                        TITLE_ACCENTS[index % TITLE_ACCENTS.length];
+
+                                    return (
+                                        <motion.span
+                                            key={`${word}-${index}`}
+                                            initial={false}
+                                            animate={{
+                                                y: isActive ? -2 : 0,
+                                                scale: isActive ? 1.02 : 1,
+                                            }}
+                                            transition={{
+                                                duration: 0.45,
+                                                ease: [0.16, 1, 0.3, 1],
+                                            }}
+                                            className={[
+                                                "relative inline-block transition-all duration-500",
+                                                isActive
+                                                    ? `bg-gradient-to-r ${gradientClass} bg-clip-text text-transparent`
+                                                    : "text-teal-950",
+                                            ].join(" ")}
+                                        >
+                                            {word}
+                                            <AnimatePresence>
+                                                {isActive && (
+                                                    <motion.span
+                                                        initial={{ opacity: 0, scaleX: 0.6 }}
+                                                        animate={{ opacity: 1, scaleX: 1 }}
+                                                        exit={{ opacity: 0, scaleX: 0.6 }}
+                                                        transition={{ duration: 0.35 }}
+                                                        className="absolute -bottom-[0.08em] left-0 h-[0.08em] w-full rounded-full bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400"
+                                                    />
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.span>
+                                    );
+                                })}
+                            </span>
                         </h1>
 
                         <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 md:text-xl md:leading-8 xl:text-2xl xl:leading-9">
@@ -59,14 +120,13 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
 
                             <Link
                                 href={`/${locale}#tracks`}
-                                className="inline-flex h-14 items-center justify-center rounded-2xl border border-teal-200 bg-white px-8 text-sm font-black text-teal-800 transition-all duration-300 hover:border-[#109988] hover:bg-[#109988]/5"
+                                className="inline-flex h-14 items-center justify-center rounded-2xl border border-teal-200/80 bg-white/75 px-8 text-sm font-black text-teal-800 backdrop-blur-md transition-all duration-300 hover:border-[#109988] hover:bg-white"
                             >
                                 {dict.hero.secondaryCta}
                             </Link>
                         </div>
                     </motion.div>
 
-                    {/* O'ng tarafdagi interaktiv karta */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.96, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -74,11 +134,10 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                         className="relative hidden lg:block"
                     >
                         <div className="relative mx-auto w-full max-w-[720px]">
-                            {/* Yashil glow effekti */}
                             <div className="absolute inset-0 -z-10 rounded-full bg-teal-400/20 blur-[100px]" />
 
-                            <div className="relative aspect-[3.5/3] rounded-[40px] bg-white p-4 shadow-[0_40px_100px_-20px_rgba(16,153,136,0.12)] border border-teal-50">
-                                <div className="flex h-full flex-col rounded-[32px] border border-slate-100 bg-[#f8fbfa] p-5">
+                            <div className="relative rounded-[40px] border border-teal-100/70 bg-white/80 p-4 shadow-[0_40px_100px_-20px_rgba(16,153,136,0.12)] backdrop-blur-md">
+                                <div className="flex h-full flex-col rounded-[32px] border border-slate-100/80 bg-[#f8fbfa]/90 p-5">
                                     <div className="mb-5 flex items-center justify-between">
                                         <div>
                                             <div className="text-[10px] font-black uppercase tracking-[0.22em] text-teal-600">
@@ -109,8 +168,7 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                                     </div>
 
                                     <div className="mt-4">
-                                        <div className="relative overflow-hidden rounded-[28px] border border-teal-100 bg-white p-5 shadow-sm xl:p-6">
-                                            {/* Bahoriy dekoratsiya (Sumalak/Maysa ramziy ma'noda) */}
+                                        <div className="relative overflow-hidden rounded-[28px] border border-teal-100/80 bg-white/90 p-5 shadow-sm xl:p-6">
                                             <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-green-400/10 blur-3xl" />
 
                                             <div className="relative flex h-full flex-col justify-between">
@@ -124,6 +182,7 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                                                                 {dict.hero.preview.rightCardTitle}
                                                             </div>
                                                         </div>
+
                                                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-[#109988]">
                                                             <Brain size={20} />
                                                         </div>
@@ -132,8 +191,11 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                                                     <div className="mt-5">
                                                         <div className="mb-2 flex items-center justify-between text-[10px] font-black uppercase tracking-[0.18em] text-teal-700">
                                                             <span>{dict.hero.preview.readinessLabel}</span>
-                                                            <span className="text-[#109988]">{dict.hero.preview.readinessValue}</span>
+                                                            <span className="text-[#109988]">
+                                                                {dict.hero.preview.readinessValue}
+                                                            </span>
                                                         </div>
+
                                                         <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-100">
                                                             <div
                                                                 className="h-full rounded-full bg-gradient-to-r from-[#109988] to-[#4ade80]"
@@ -144,20 +206,28 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                                                 </div>
 
                                                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                                                    <FeatureRow title={dict.hero.preview.badges[0]} text={dict.hero.preview.badgeDescriptions[0]} />
-                                                    <FeatureRow title={dict.hero.preview.badges[1]} text={dict.hero.preview.badgeDescriptions[1]} />
-                                                    <FeatureRow title={dict.hero.preview.badges[2]} text={dict.hero.preview.badgeDescriptions[2]} />
+                                                    <FeatureRow
+                                                        title={dict.hero.preview.badges[0]}
+                                                        text={dict.hero.preview.badgeDescriptions[0]}
+                                                    />
+                                                    <FeatureRow
+                                                        title={dict.hero.preview.badges[1]}
+                                                        text={dict.hero.preview.badgeDescriptions[1]}
+                                                    />
+                                                    <FeatureRow
+                                                        title={dict.hero.preview.badges[2]}
+                                                        text={dict.hero.preview.badgeDescriptions[2]}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Floating Elements */}
                                 <motion.div
                                     animate={{ y: [0, -8, 0] }}
                                     transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute -right-3 top-8 rounded-2xl border border-teal-100 bg-white px-4 py-3 shadow-xl z-20"
+                                    className="absolute -right-3 top-8 z-20 rounded-2xl border border-teal-100/80 bg-white/90 px-4 py-3 shadow-xl backdrop-blur-md"
                                 >
                                     <div className="text-[10px] font-black uppercase tracking-[0.18em] text-teal-500">
                                         {dict.hero.preview.floatingTopTitle}
@@ -171,32 +241,9 @@ export function HeroSection({ locale, dict }: HeroSectionProps) {
                     </motion.div>
                 </div>
             </div>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-24 bg-gradient-to-b from-transparent to-[#fafdfc]" />
         </section>
-    );
-}
-
-function HeroBackground() {
-    return (
-        <div className="pointer-events-none absolute inset-0 z-0">
-            {/* Navro'z ranglari: Ochiq yashil va ko'k gradient */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(20,184,166,0.08),transparent_40%),radial-gradient(circle_at_90%_90%,rgba(74,222,128,0.08),transparent_40%)]" />
-
-            {/* Dekorativ to'lqinlar (SVG) */}
-            <svg className="absolute top-0 left-0 w-full h-full opacity-[0.4]" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0 0 C 30 10 70 0 100 15 L 100 0 L 0 0 Z" fill="rgba(20,184,166,0.03)" />
-                <path d="M0 100 C 40 90 60 100 100 85 L 100 100 L 0 100 Z" fill="rgba(74,222,128,0.03)" />
-            </svg>
-
-            <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(#109988_1px,transparent_1px),linear-gradient(90deg,#109988_1px,transparent_1px)] [background-size:40px_40px]" />
-        </div>
-    );
-}
-
-function HeroProof({ text }: { text: string }) {
-    return (
-        <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-slate-200 backdrop-blur">
-            {text}
-        </div>
     );
 }
 
@@ -210,7 +257,7 @@ function WhiteTrackCard({
     subtitle: string;
 }) {
     return (
-        <div className="rounded-3xl border border-slate-200 bg-white p-4">
+        <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-4 backdrop-blur-sm">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ecfffd] text-[#109988]">
                 {icon}
             </div>
@@ -230,7 +277,7 @@ function FeatureRow({
     text: string;
 }) {
     return (
-        <div className="flex h-full items-start gap-3 rounded-2xl border border-slate-200 bg-[#f8fbfa] px-4 py-4 transition hover:bg-[#f2fbf8]">
+        <div className="flex h-full items-start gap-3 rounded-2xl border border-slate-200/80 bg-[#f8fbfa]/90 px-4 py-4 transition hover:bg-[#f2fbf8]">
             <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white text-[#109988] shadow-sm">
                 <CheckCircle2 size={16} />
             </div>

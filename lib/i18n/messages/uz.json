@@ -72,19 +72,19 @@
     }
   },
   "news": {
-      "emptyTitle": "Yangiliklar topilmadi",
-      "emptyDesc": "Hozircha e’lon qilingan yangiliklar mavjud emas.",
-      "readMore": "Batafsil",
-      "hide": "Yopish",
-      "views": "Ko‘rish",
-      "prev": "Oldingi",
-      "next": "Keyingi",
-      "articleLabel": "Maqola",
-      "shareLabel": "Ulashish",
-      "relatedTitle": "Yana o‘qish",
-      "backToList": "Yangiliklarga qaytish",
-      "ctaDefault": "Batafsil"
-    },
+    "emptyTitle": "Yangiliklar topilmadi",
+    "emptyDesc": "Hozircha e’lon qilingan yangiliklar mavjud emas.",
+    "readMore": "Batafsil",
+    "hide": "Yopish",
+    "views": "Ko‘rish",
+    "prev": "Oldingi",
+    "next": "Keyingi",
+    "articleLabel": "Maqola",
+    "shareLabel": "Ulashish",
+    "relatedTitle": "Yana o‘qish",
+    "backToList": "Yangiliklarga qaytish",
+    "ctaDefault": "Batafsil"
+  },
   "features": {
     "eyebrow": "Imkoniyatlar",
     "title": "Tayyorlanish jarayonini tushunarli qiladigan imkoniyatlar",
@@ -115,17 +115,34 @@
     ]
   },
   "footer": {
-    "description": "ENWIS — testlarga tayyorlanish uchun zamonaviy va tushunarli platforma.",
+    "description": "ENWIS — testlarga aqlli, tartibli va zamonaviy tayyorlanish platformasi.",
+    "copyright": "Barcha huquqlar himoyalangan.",
+    "madeIn": "O‘zbekistonda yaratilgan",
     "sections": {
-      "navigation": "Sahifalar",
-      "tests": "Testlar"
+      "navigation": "Navigatsiya",
+      "tests": "Imtihonlar",
+      "support": "Yordam"
     },
     "links": {
       "home": "Bosh sahifa",
       "pricing": "Narxlar",
-      "business": "Biznes"
+      "business": "Biznes",
+      "blog": "Blog"
     },
-    "copyright": "Barcha huquqlar himoyalangan."
+    "tests": {
+      "ielts": "IELTS Mock",
+      "cefr": "CEFR Multi-level",
+      "dtm": "DTM Testlar",
+      "placement": "Kirish testi"
+    },
+    "support": {
+      "help": "Yordam markazi",
+      "privacy": "Maxfiylik siyosati",
+      "terms": "Foydalanish shartlari"
+    },
+    "status": {
+      "online": "Tizim holati: Online"
+    }
   },
   "exams": {
     "eyebrow": "Imtihonlarga tayyorgarlik",
@@ -351,74 +368,121 @@
       ]
     }
   },
-  "landing": {
-    "stats": {
-      "items": [
-        { "label": "Mock testlar", "value": "500+" },
-        { "label": "Foydalanuvchilar", "value": "12k+" },
-        { "label": "Yuqori natijalar", "value": "1.2k" },
-        { "label": "AI javobi", "value": "Tezkor" }
+  "cefrPage": {
+    "hero": {
+      "badge": "CEFR / Multilevel tayyorlov",
+      "title": "CEFR multilevel imtihoniga tizimli tayyorlaning",
+      "description": "Listening, Reading, Writing va Speaking bo‘limlari bo‘yicha mashq qiling, progressni kuzating va O‘zbekistondagi milliy sertifikat formatiga yaqin tayyorlaning.",
+      "primaryCta": "Boshlash",
+      "secondaryCta": "Multilevel haqida",
+      "stats": [
+        { "label": "Bo‘limlar", "value": "4 Skills" },
+        { "label": "Format", "value": "Multilevel" },
+        { "label": "Yordam", "value": "AI Feedback" },
+        { "label": "Fokus", "value": "Real Practice" }
       ]
     },
-    "tracks": {
+    "intro": {
+      "eyebrow": "Multilevel nima?",
+      "title": "CEFR multilevel — chet tilini bilish darajasini baholovchi milliy sertifikat",
+      "description": "Multilevel imtihoni O‘zbekistonda chet tilini bilish darajasini CEFR mezonlari asosida baholash uchun qo‘llanadi. U o‘qish, ish, ta’lim va rasmiy darajani tasdiqlash kabi maqsadlarda muhim hisoblanadi.",
+      "points": [
+        "CEFR mezonlariga mos darajani aniqlashga xizmat qiladi.",
+        "Listening, Reading, Writing va Speaking ko‘nikmalarini baholaydi.",
+        "O‘zbekistondagi milliy sertifikat tizimiga mos formatda tashkil etiladi."
+      ]
+    },
+    "format": {
+      "eyebrow": "Multilevel formati",
+      "title": "Test 4 ta asosiy bo‘limdan iborat",
+      "description": "Har bir bo‘lim alohida ko‘nikmani tekshiradi va tayyorlanishda turli strategiyalarni talab qiladi.",
       "items": [
         {
-          "title": "IELTS",
-          "description": "IELTS bo‘yicha mashq, mock test va natijalarni tahlil qilish uchun yo‘nalish."
+          "title": "Listening",
+          "description": "Audio materiallarni tushunish, asosiy g‘oya va kerakli detailni ushlash ko‘nikmasi."
         },
         {
-          "title": "CEFR",
-          "description": "CEFR multilevel tayyorlov, til darajasi va progressni ko‘rish uchun yo‘nalish."
-        },
-        {
-          "title": "DTM",
-          "description": "Umumiy test tayyorlovini boshqarish va natijalarni kuzatish uchun yo‘nalish."
+          "title": "Reading",
+          "description": "Matnlarni tahlil qilish, muhim ma’lumotni topish va ma’noni to‘g‘ri tushunish qobiliyati."
         },
         {
           "title": "Writing",
-          "description": "Writing bo‘yicha mashq, feedback va yozma ish ustida ishlash uchun yo‘nalish."
+          "description": "Yozma topshiriqlarda fikrni aniq, mantiqiy va grammatik jihatdan to‘g‘ri ifodalash."
+        },
+        {
+          "title": "Speaking",
+          "description": "Og‘zaki nutqda fluency, vocabulary, pronunciation va coherence ko‘nikmalarini namoyish qilish."
         }
+      ]
+    },
+    "scoring": {
+      "eyebrow": "Baholash tizimi",
+      "title": "Natija CEFR darajasi va standart shkala orqali baholanadi",
+      "description": "Multilevel imtihonida receptive ko‘nikmalar standartlashtirilgan shkala asosida, productive ko‘nikmalar esa baholash mezonlari orqali tekshiriladi.",
+      "items": [
+        "Listening va Reading natijalari standartlashtirilgan shkala asosida hisoblanadi.",
+        "Writing va Speaking baholash mezonlari orqali ekspertlar tomonidan tekshiriladi.",
+        "Yakuniy natija foydalanuvchining hozirgi CEFR darajasini tushunishga yordam beradi."
+      ]
+    },
+    "challenges": {
+      "eyebrow": "Ko‘p uchraydigan qiyinchiliklar",
+      "title": "Multilevel tayyorlovida o‘quvchilar ko‘pincha shu joylarda qiynaladi",
+      "items": [
+        "Listening’da kerakli detailni eshitmay qolish.",
+        "Reading’da vaqtni noto‘g‘ri taqsimlash va murakkab matnda yo‘qolib qolish.",
+        "Writing’da structure, coherence va grammar yetishmasligi.",
+        "Speaking’da fikrni ravon davom ettirish va ishonch bilan gapirish qiyin bo‘lishi."
+      ]
+    },
+    "platform": {
+      "eyebrow": "ENWIS va Multilevel",
+      "ai": "V2 sun’iy intellekt dvigateli",
+      "ai1": "Real vaqtda",
+      "ai2": "tahlil va feedback",
+      "title_part1": "Milliy sertifikat sari",
+      "title_highlight": "tizimli",
+      "title_part2": "tayyorlov ekotizimi",
+      "description": "Platforma multilevel tayyorlovini bo‘limlar, mashqlar, feedback va progress bilan bitta joyga yig‘adi.",
+      "ai_dec": "Sun’iy intellekt yordamida nutqingiz va yozma ishlaringizni tahlil qiling, xatolarni ko‘ring va kuchsiz joylar ustida ishlang.",
+      "items": [
+        "Listening, Reading, Writing va Speaking bo‘yicha alohida tayyorlov.",
+        "Milliy sertifikat formatiga yaqin mock tests va mashq muhiti.",
+        "Progress tizimi orqali kuchli va kuchsiz tomonlarni ko‘rish.",
+        "Writing va Speaking uchun feedback va tahlil.",
+        "Tartibli, tushunarli va natijaga yo‘naltirilgan tayyorlov oqimi."
       ],
-      "openTrack": "Yo‘nalishni ochish"
+      "cta": "Multilevel tayyorlovni boshlash"
     },
-    "experience": {
-      "title": "Haqiqiy imtihon hissi. Istalgan joyda.",
+    "faq": {
+      "eyebrow": "Savollar",
+      "title": "CEFR / Multilevel bo‘yicha ko‘p so‘raladigan savollar",
       "items": [
         {
-          "title": "Real mock muhit",
-          "description": "Imtihonga yaqin muhitda ishlash va vaqt bosimini his qilish."
+          "question": "Multilevel kimlar uchun kerak bo‘lishi mumkin?",
+          "answer": "Multilevel sertifikati chet tilini bilish darajasini rasmiy tasdiqlashni istaganlar uchun kerak bo‘lishi mumkin. U ta’lim, ish, malaka talablari va ayrim rasmiy jarayonlarda foydali hisoblanadi. Shuningdek, til darajasini CEFR mezonlari asosida bilib olish va hujjatlashtirish uchun ham muhim."
         },
         {
-          "title": "AI speaking mashqi",
-          "description": "Speaking bo‘yicha AI yordamida mashq qilish va o‘z holatini ko‘rish."
+          "question": "Multilevelda qanday darajalar aniqlanadi?",
+          "answer": "Multilevel imtihoni foydalanuvchining CEFR tizimidagi darajasini aniqlashga qaratilgan. Natija til ko‘nikmalari asosida baholanadi va foydalanuvchining hozirgi tayyorgarlik darajasini ko‘rsatadi."
         },
         {
-          "title": "Writing tahlili",
-          "description": "Yozma ishlarda grammar, coherence va umumiy sifat bo‘yicha feedback olish."
+          "question": "Multilevel nechta bo‘limdan iborat?",
+          "answer": "Multilevel imtihoni 4 ta asosiy bo‘limdan iborat: Listening, Reading, Writing va Speaking. Har bir bo‘lim alohida ko‘nikmani tekshiradi va umumiy natija foydalanuvchining til darajasini aniqlashga yordam beradi."
+        },
+        {
+          "question": "Platforma multilevel tayyorlovida nima beradi?",
+          "answer": "Platforma foydalanuvchiga multilevel formatiga yaqin mashq qilish, bo‘limlar bo‘yicha tayyorlanish, progressni kuzatish va Writing hamda Speaking uchun feedback olish imkonini beradi. Bu esa tayyorlovni tartibli, aniq va samarali qiladi."
         }
       ]
-    },
-    "process": {
-      "title": "Qanday ishlaydi",
-      "items": [
-        {
-          "title": "Ro‘yxatdan o‘ting",
-          "description": "Tilni tanlang va qisqa vaqt ichida profilingizni yarating."
-        },
-        {
-          "title": "Testni boshlang",
-          "description": "Mock testlar va mashqlar orqali tayyorlovni boshlang."
-        },
-        {
-          "title": "Natijani yaxshilang",
-          "description": "Feedback, progress va analytics yordamida natijangizni oshiring."
-        }
-      ]
-    },
-    "finalCta": {
-      "title": "Imtihon tayyorlovining kelajagi shu yerda boshlanadi.",
-      "description": "Faqat ko‘proq ishlamang, tartibli va aqlli tayyorlaning. Bugunoq platformani boshlang.",
-      "cta": "Hisob yaratish"
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Sahifa topilmadi",
+      "description": "Kechirasiz, siz izlayotgan sahifa mavjud emas yoki o‘chirilgan.",
+      "home": "Bosh sahifaga",
+      "back": "Ortga qaytish"
     }
   }
 }

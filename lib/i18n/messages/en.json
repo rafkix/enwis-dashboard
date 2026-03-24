@@ -115,17 +115,34 @@
     ]
   },
   "footer": {
-    "description": "ENWIS is a modern and clear platform for exam preparation.",
+    "description": "ENWIS is a platform for smart, structured, and modern exam preparation.",
+    "copyright": "All rights reserved.",
+    "madeIn": "Made in Uzbekistan",
     "sections": {
-      "navigation": "Pages",
-      "tests": "Tests"
+      "navigation": "Navigation",
+      "tests": "Exams",
+      "support": "Support"
     },
     "links": {
       "home": "Home",
       "pricing": "Pricing",
-      "business": "Business"
+      "business": "Business",
+      "blog": "Blog"
     },
-    "copyright": "All rights reserved."
+    "tests": {
+      "ielts": "IELTS Mock",
+      "cefr": "CEFR Multi-level",
+      "dtm": "DTM Tests",
+      "placement": "Placement Test"
+    },
+    "support": {
+      "help": "Help Center",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    },
+    "status": {
+      "online": "System Status: Online"
+    }
   },
   "exams": {
     "eyebrow": "Exam Preparation",
@@ -311,74 +328,121 @@
       ]
     }
   },
-  "landing": {
-    "stats": {
-      "items": [
-        { "label": "Mock tests", "value": "500+" },
-        { "label": "Users", "value": "12k+" },
-        { "label": "High results", "value": "1.2k" },
-        { "label": "AI response", "value": "Instant" }
+  "cefrPage": {
+    "hero": {
+      "badge": "CEFR / Multilevel Preparation",
+      "title": "Prepare for CEFR Multilevel the smart way",
+      "description": "Practice Listening, Reading, Writing, and Speaking, track your progress, and prepare using a format aligned with Uzbekistan’s national certification.",
+      "primaryCta": "Get started",
+      "secondaryCta": "About Multilevel",
+      "stats": [
+        { "label": "Sections", "value": "4 Skills" },
+        { "label": "Format", "value": "Multilevel" },
+        { "label": "Support", "value": "AI Feedback" },
+        { "label": "Focus", "value": "Real Practice" }
       ]
     },
-    "tracks": {
+    "intro": {
+      "eyebrow": "What is Multilevel?",
+      "title": "CEFR Multilevel is a national language certification exam",
+      "description": "The Multilevel exam in Uzbekistan evaluates language proficiency based on CEFR standards.",
+      "points": [
+        "Measures CEFR-based language level.",
+        "Covers Listening, Reading, Writing, Speaking.",
+        "Aligned with national certification system."
+      ]
+    },
+    "format": {
+      "eyebrow": "Exam format",
+      "title": "The test consists of 4 sections",
+      "description": "Each section tests a specific skill.",
       "items": [
         {
-          "title": "IELTS",
-          "description": "A track for IELTS practice, mock tests, and result analysis."
+          "title": "Listening",
+          "description": "Understanding audio and key details."
         },
         {
-          "title": "CEFR",
-          "description": "A track for CEFR multilevel preparation, level visibility, and progress tracking."
-        },
-        {
-          "title": "DTM",
-          "description": "A track for general test preparation and result tracking."
+          "title": "Reading",
+          "description": "Analyzing texts and extracting meaning."
         },
         {
           "title": "Writing",
-          "description": "A track for writing practice, feedback, and written work improvement."
+          "description": "Expressing ideas clearly and accurately."
+        },
+        {
+          "title": "Speaking",
+          "description": "Fluency, vocabulary, pronunciation, coherence."
         }
+      ]
+    },
+    "scoring": {
+      "eyebrow": "Scoring system",
+      "title": "Results reflect your CEFR level",
+      "description": "Different skills are evaluated differently.",
+      "items": [
+        "Listening and Reading use standardized scoring.",
+        "Writing and Speaking are evaluated by criteria.",
+        "Final score reflects CEFR level."
+      ]
+    },
+    "challenges": {
+      "eyebrow": "Challenges",
+      "title": "Common preparation difficulties",
+      "items": [
+        "Missing details in listening.",
+        "Poor time management in reading.",
+        "Weak structure in writing.",
+        "Low fluency in speaking."
+      ]
+    },
+    "platform": {
+      "eyebrow": "ENWIS & Multilevel",
+      "ai": "AI engine V2",
+      "ai1": "Real-time",
+      "ai2": "analysis & feedback",
+      "title_part1": "Towards certification with",
+      "title_highlight": "structured",
+      "title_part2": "preparation system",
+      "description": "Everything in one place: practice, analysis, and progress.",
+      "ai_dec": "AI analyzes your speaking and writing to improve faster.",
+      "items": [
+        "Practice all 4 skills.",
+        "Exam-like mock tests.",
+        "Progress tracking.",
+        "Writing & speaking feedback.",
+        "Structured preparation flow."
       ],
-      "openTrack": "Open track"
+      "cta": "Start preparation"
     },
-    "experience": {
-      "title": "Real exam atmosphere. Anywhere.",
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions",
       "items": [
         {
-          "title": "Real mock environment",
-          "description": "Work in an exam-like environment and feel realistic time pressure."
+          "question": "Who needs Multilevel?",
+          "answer": "Anyone who wants to certify their language level."
         },
         {
-          "title": "AI speaking practice",
-          "description": "Practice speaking with AI support and understand your current level."
+          "question": "What levels are assessed?",
+          "answer": "CEFR levels."
         },
         {
-          "title": "Writing analytics",
-          "description": "Get feedback on grammar, coherence, and overall writing quality."
+          "question": "How many sections?",
+          "answer": "4 sections."
+        },
+        {
+          "question": "What does the platform provide?",
+          "answer": "Practice, feedback, analytics."
         }
       ]
-    },
-    "process": {
-      "title": "How it works",
-      "items": [
-        {
-          "title": "Register",
-          "description": "Choose your language and create your profile quickly."
-        },
-        {
-          "title": "Start the test",
-          "description": "Begin preparation through mock tests and practical exercises."
-        },
-        {
-          "title": "Improve results",
-          "description": "Use feedback, progress, and analytics to raise your score."
-        }
-      ]
-    },
-    "finalCta": {
-      "title": "The future of exam preparation starts here.",
-      "description": "Do not just work harder — prepare smarter and with more structure. Start the platform today.",
-      "cta": "Create account"
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "Sorry, the page you are looking for does not exist.",
+      "home": "Go home",
+      "back": "Go back"
     }
   }
 }
