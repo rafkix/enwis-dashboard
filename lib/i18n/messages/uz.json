@@ -83,7 +83,18 @@
     "shareLabel": "Ulashish",
     "relatedTitle": "Yana o‘qish",
     "backToList": "Yangiliklarga qaytish",
-    "ctaDefault": "Batafsil"
+    "ctaDefault": "Batafsil",
+    "home": "Bosh sahifa",
+    "listTitle": "Yangiliklar",
+    "latestTitle": "So‘nggi yangiliklar",
+    "joinTelegramTitle": "Kanalimizga qo‘shiling",
+    "joinTelegramDesc": "Eng so‘nggi yangiliklar, e’lonlar va foydali postlarni birinchi bo‘lib Telegram kanalimizda kuzating.",
+    "joinTelegramCta": "Kanalga o‘tish",
+    "introFallback": "Ushbu maqolada mavzu bo‘yicha foydali ma’lumotlar, media bloklar va qo‘shimcha havolalar jamlangan.",
+    "youtubeTitle": "YouTube video",
+    "goToImage": "{index}-rasmga o‘tish",
+    "metaDefaultTitle": "Yangiliklar",
+    "metaDefaultDescription": "ENWIS yangiliklari va foydali yangilanishlar."
   },
   "features": {
     "eyebrow": "Imkoniyatlar",
@@ -194,6 +205,12 @@
     "courses": "Kurslar",
     "graduates": "Muvaffaqiyat",
     "countries": "Davlatlar"
+  },
+  "telegramPromo": {
+    "title": "Telegram kanallarimiz",
+    "description": "CEFR, IELTS va foydali materiallarni Telegram kanallarimizda kuzating.",
+    "button": "Kanalga o‘tish",
+    "badge": "Tavsiya etiladi"
   },
   "faq": {
     "eyebrow": "Savollaringiz bormi?",

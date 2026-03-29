@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/config/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
 
-  const routes = ["", "/cefr", "/ielts", "/dtm"];
+  const routes = ["", "/cefr", "/ielts", "/dtm", "/news"];
 
   const sitemap: MetadataRoute.Sitemap = [];
 

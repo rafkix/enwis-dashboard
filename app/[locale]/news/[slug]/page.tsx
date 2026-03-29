@@ -4,6 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import CopyLinkButton from '@/components/news/copy-link-button'
+import GalleryCarousel from '@/components/news/gallery-carousel'
+import { getDictionary } from '@/lib/i18n/dictionaries'
+import { defaultLocale, isValidLocale, type Locale } from '@/lib/i18n/locales'
 
 type Props = {
     params: Promise<{ locale: string; slug: string }>
@@ -31,8 +34,39 @@ type Block =
     | { type: 'quote'; text?: string }
     | { type: 'link'; url?: string; label?: string }
 
+type NewsMessages = {
+    emptyTitle: string
+    emptyDesc: string
+    readMore: string
+    hide: string
+    views: string
+    prev: string
+    next: string
+    articleLabel: string
+    shareLabel: string
+    relatedTitle: string
+    backToList: string
+    ctaDefault: string
+    home: string
+    listTitle: string
+    latestTitle: string
+    joinTelegramTitle: string
+    joinTelegramDesc: string
+    joinTelegramCta: string
+    introFallback: string
+    youtubeTitle: string
+    goToImage: string
+    metaDefaultTitle: string
+    metaDefaultDescription: string
+}
+
+function resolveLocale(locale: string): Locale {
+    return isValidLocale(locale) ? locale : defaultLocale
+}
+
 function formatDate(date: Date | null | undefined, locale: string) {
     if (!date) return ''
+
     try {
         return new Intl.DateTimeFormat(locale, {
             year: 'numeric',
@@ -107,12 +141,91 @@ function getDescription(excerpt?: string | null, contentJson?: string | null) {
     if (excerpt?.trim()) return excerpt.trim()
 
     const paragraphs = safeParseContent(contentJson)
-        .filter((block): block is Extract<Block, { type: 'paragraph' }> => block.type === 'paragraph')
+        .filter(
+            (block): block is Extract<Block, { type: 'paragraph' }> =>
+                block.type === 'paragraph'
+        )
         .map((block) => block.text?.trim() || '')
         .filter(Boolean)
 
     const text = paragraphs.join(' ').replace(/\s+/g, ' ').trim()
     return text.slice(0, 160)
+}
+
+function getPlainTextContent(contentJson?: string | null) {
+    const content = safeParseContent(contentJson)
+
+    return content
+        .map((block) => {
+            if (
+                block.type === 'paragraph' ||
+                block.type === 'heading' ||
+                block.type === 'quote'
+            ) {
+                return block.text?.trim() || ''
+            }
+
+            if (block.type === 'link') {
+                return block.label?.trim() || ''
+            }
+
+            return ''
+        })
+        .filter(Boolean)
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+}
+
+function buildSeoDescription(
+    excerpt?: string | null,
+    contentJson?: string | null,
+    fallback?: string
+) {
+    const raw =
+        getDescription(excerpt, contentJson) ||
+        getPlainTextContent(contentJson).slice(0, 160) ||
+        fallback ||
+        'Latest news and useful updates.'
+
+    return raw.length > 160 ? `${raw.slice(0, 157)}...` : raw
+}
+
+function buildOgLocale(locale: Locale) {
+    switch (locale) {
+        case 'uz':
+            return 'uz_UZ'
+        case 'ru':
+            return 'ru_RU'
+        case 'en':
+            return 'en_US'
+        default:
+            return 'uz_UZ'
+    }
+}
+
+function buildAlternateLanguagesFromTranslations(
+    translations: Array<{ locale: string; slug: string }>
+) {
+    const base = getBaseUrl()
+    if (!base) return undefined
+
+    const languages: Record<string, string> = {}
+
+    for (const item of translations) {
+        const locale = resolveLocale(item.locale)
+        if (!item.slug) continue
+        languages[locale] = `${base}/${locale}/news/${item.slug}`
+    }
+
+    const fallback = translations.find((item) => item.locale === 'uz') || translations[0]
+
+    if (fallback?.slug) {
+        const fallbackLocale = resolveLocale(fallback.locale)
+        languages['x-default'] = `${base}/${fallbackLocale}/news/${fallback.slug}`
+    }
+
+    return languages
 }
 
 async function incrementViews(newsId: string) {
@@ -139,60 +252,50 @@ async function getNewsBySlug(locale: string, slug: string) {
             news: {
                 include: {
                     shortLink: true,
+                    translations: true,
                 },
             },
         },
     })
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { locale, slug } = await params
-    const translation = await getNewsBySlug(locale, slug)
-
-    if (!translation || !translation.news.websitePublished) {
-        return {
-            title: 'News',
-        }
-    }
-
-    const title = translation.title
-    const description = getDescription(translation.excerpt, translation.contentJson)
-    const canonicalUrl = `${getBaseUrl()}/${locale}/news/${slug}`
-    const image = getAbsoluteUrl(translation.news.coverImage)
+async function getNewsMessages(locale: Locale): Promise<NewsMessages> {
+    const dict = await getDictionary(locale)
+    const news = (dict?.news || {}) as Partial<NewsMessages>
 
     return {
-        title,
-        description,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        openGraph: {
-            title,
-            description,
-            url: canonicalUrl,
-            type: 'article',
-            locale,
-            images: image
-                ? [
-                    {
-                        url: image,
-                        width: 1200,
-                        height: 630,
-                        alt: title,
-                    },
-                ]
-                : [],
-        },
-        twitter: {
-            card: image ? 'summary_large_image' : 'summary',
-            title,
-            description,
-            images: image ? [image] : [],
-        },
+        emptyTitle: news.emptyTitle || 'No news found',
+        emptyDesc: news.emptyDesc || 'No published news yet.',
+        readMore: news.readMore || 'Read more',
+        hide: news.hide || 'Hide',
+        views: news.views || 'Views',
+        prev: news.prev || 'Previous',
+        next: news.next || 'Next',
+        articleLabel: news.articleLabel || 'Article',
+        shareLabel: news.shareLabel || 'Share',
+        relatedTitle: news.relatedTitle || 'Read more',
+        backToList: news.backToList || 'Back to news',
+        ctaDefault: news.ctaDefault || 'Read more',
+        home: news.home || 'Home',
+        listTitle: news.listTitle || 'News',
+        latestTitle: news.latestTitle || 'Latest news',
+        joinTelegramTitle: news.joinTelegramTitle || 'Join our channel',
+        joinTelegramDesc:
+            news.joinTelegramDesc ||
+            'Follow the latest news and useful posts on our Telegram channel.',
+        joinTelegramCta: news.joinTelegramCta || 'Go to channel',
+        introFallback:
+            news.introFallback ||
+            'This article contains useful information, media blocks, and additional links related to the topic.',
+        youtubeTitle: news.youtubeTitle || 'YouTube video',
+        goToImage: news.goToImage || 'Go to image {index}',
+        metaDefaultTitle: news.metaDefaultTitle || 'News',
+        metaDefaultDescription:
+            news.metaDefaultDescription || 'Latest news and useful updates.',
     }
 }
 
-function renderBlock(block: Block, index: number) {
+function renderBlock(block: Block, index: number, ui: NewsMessages) {
     switch (block.type) {
         case 'paragraph':
             if (!block.text?.trim()) return null
@@ -241,7 +344,9 @@ function renderBlock(block: Block, index: number) {
                     </div>
 
                     {block.caption ? (
-                        <figcaption className="text-sm text-slate-500">{block.caption}</figcaption>
+                        <figcaption className="text-sm text-slate-500">
+                            {block.caption}
+                        </figcaption>
                     ) : null}
                 </figure>
             )
@@ -252,30 +357,13 @@ function renderBlock(block: Block, index: number) {
             if (!items.length) return null
 
             return (
-                <div key={index} className="grid gap-4 sm:grid-cols-2">
-                    {items.map((item, i) => {
-                        const imageUrl = getAbsoluteUrl(item.url)
-                        if (!imageUrl) return null
-
-                        const aspectClass = getAspectClass(item.ratio || '4:3')
-
-                        return (
-                            <div
-                                key={i}
-                                className={`relative overflow-hidden rounded-2xl bg-slate-100 ${aspectClass || 'min-h-[220px]'
-                                    }`}
-                            >
-                                <Image
-                                    src={imageUrl}
-                                    alt={item.alt || ''}
-                                    fill
-                                    className={aspectClass ? 'object-cover' : 'object-contain'}
-                                    sizes="(max-width: 768px) 100vw, 420px"
-                                />
-                            </div>
-                        )
-                    })}
-                </div>
+                <GalleryCarousel
+                    key={index}
+                    items={items}
+                    prevLabel={ui.prev}
+                    nextLabel={ui.next}
+                    goToImageTemplate={ui.goToImage}
+                />
             )
         }
 
@@ -288,6 +376,7 @@ function renderBlock(block: Block, index: number) {
                     <iframe
                         className="h-full w-full"
                         src={`https://www.youtube.com/embed/${videoId}`}
+                        title={ui.youtubeTitle}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     />
@@ -325,15 +414,92 @@ function renderBlock(block: Block, index: number) {
     }
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale: rawLocale, slug } = await params
+    const locale = resolveLocale(rawLocale)
+    const ui = await getNewsMessages(locale)
+    const translation = await getNewsBySlug(locale, slug)
+
+    if (!translation || !translation.news.websitePublished) {
+        return {
+            title: ui.metaDefaultTitle,
+            description: ui.metaDefaultDescription,
+            robots: {
+                index: false,
+                follow: false,
+            },
+        }
+    }
+
+    const title = translation.title.trim()
+    const description = buildSeoDescription(
+        translation.excerpt,
+        translation.contentJson,
+        ui.metaDefaultDescription
+    )
+    const canonicalUrl = `${getBaseUrl()}/${locale}/news/${slug}`
+    const image = getAbsoluteUrl(translation.news.coverImage)
+
+    return {
+        title,
+        description,
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+                'max-video-preview': -1,
+            },
+        },
+        alternates: {
+            canonical: canonicalUrl,
+            languages: buildAlternateLanguagesFromTranslations(
+                translation.news.translations.map((item) => ({
+                    locale: item.locale,
+                    slug: item.slug,
+                }))
+            ),
+        },
+        openGraph: {
+            title,
+            description,
+            url: canonicalUrl,
+            type: 'article',
+            locale: buildOgLocale(locale),
+            images: image
+                ? [
+                    {
+                        url: image,
+                        width: 1200,
+                        height: 630,
+                        alt: title,
+                    },
+                ]
+                : [],
+        },
+        twitter: {
+            card: image ? 'summary_large_image' : 'summary',
+            title,
+            description,
+            images: image ? [image] : [],
+        },
+    }
+}
+
 export default async function NewsDetailPage({ params }: Props) {
-    const { locale, slug } = await params
+    const { locale: rawLocale, slug } = await params
+    const locale = resolveLocale(rawLocale)
+    const ui = await getNewsMessages(locale)
     const translation = await getNewsBySlug(locale, slug)
 
     if (!translation || !translation.news.websitePublished) {
         notFound()
     }
 
-    await incrementViews(translation.news.id)
+    void incrementViews(translation.news.id)
 
     const content = safeParseContent(translation.contentJson)
     const canonicalUrl = `${getBaseUrl()}/${locale}/news/${slug}`
@@ -383,17 +549,98 @@ export default async function NewsDetailPage({ params }: Props) {
             date: Date | null
         }>
 
+    const description = buildSeoDescription(
+        translation.excerpt,
+        translation.contentJson,
+        ui.metaDefaultDescription
+    )
+
+    const articleSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: translation.title,
+        description,
+        image: coverImage ? [coverImage] : [],
+        datePublished: translation.news.websitePublishedAt?.toISOString(),
+        dateModified: translation.news.websitePublishedAt?.toISOString(),
+        author: {
+            '@type': 'Organization',
+            name: 'ENWIS',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'ENWIS',
+            logo: {
+                '@type': 'ImageObject',
+                url: `${getBaseUrl()}/enwis.png`,
+            },
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': canonicalUrl,
+        },
+        inLanguage: locale,
+    }
+
+    const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: ui.home,
+                item: `${getBaseUrl()}/${locale}`,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: ui.listTitle,
+                item: `${getBaseUrl()}/${locale}/news`,
+            },
+            {
+                '@type': 'ListItem',
+                position: 3,
+                name: translation.title,
+                item: canonicalUrl,
+            },
+        ],
+    }
+
     return (
         <main className="mx-auto max-w-7xl px-4 pb-12 pt-24 md:pt-28">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+
             <div className="grid gap-8 xl:grid-cols-[minmax(0,860px)_320px] xl:justify-between">
                 <article className="min-w-0 space-y-6">
+                    <nav className="text-sm text-slate-500">
+                        <Link href={`/${locale}`} className="hover:text-slate-900">
+                            {ui.home}
+                        </Link>
+                        <span className="px-2">/</span>
+                        <Link href={`/${locale}/news`} className="hover:text-slate-900">
+                            {ui.listTitle}
+                        </Link>
+                        <span className="px-2">/</span>
+                        <span className="line-clamp-1 text-slate-700">{translation.title}</span>
+                    </nav>
+
                     <div className="space-y-4">
                         <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
                             {translation.news.websitePublishedAt ? (
                                 <span>{formatDate(translation.news.websitePublishedAt, locale)}</span>
                             ) : null}
                             <span>•</span>
-                            <span>{translation.news.views} views</span>
+                            <span>
+                                {translation.news.views} {ui.views}
+                            </span>
                         </div>
 
                         <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-4xl">
@@ -420,7 +667,32 @@ export default async function NewsDetailPage({ params }: Props) {
                         </div>
                     ) : null}
 
-                    <div className="space-y-6">{content.map((block, i) => renderBlock(block, i))}</div>
+                    <div className="space-y-6">
+                        <p className="text-lg leading-8 text-slate-700">
+                            {ui.introFallback}
+                        </p>
+
+                        {content.map((block, i) => renderBlock(block, i, ui))}
+
+                        {latestNews.length > 0 ? (
+                            <section className="mt-10 rounded-2xl border bg-slate-50 p-5">
+                                <h2 className="text-2xl font-semibold text-slate-900">
+                                    {ui.relatedTitle}
+                                </h2>
+                                <div className="mt-4 grid gap-3">
+                                    {latestNews.slice(0, 3).map((item) => (
+                                        <Link
+                                            key={item.id}
+                                            href={`/${locale}/news/${item.slug}`}
+                                            className="rounded-xl bg-white px-4 py-3 text-sm font-medium text-slate-700 transition hover:text-slate-900 hover:shadow-sm"
+                                        >
+                                            {item.title}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </section>
+                        ) : null}
+                    </div>
 
                     <div className="mt-10 flex flex-wrap gap-3 border-t pt-6">
                         <a
@@ -443,11 +715,22 @@ export default async function NewsDetailPage({ params }: Props) {
 
                         <CopyLinkButton url={shortUrl} />
                     </div>
+
+                    <div className="pt-2">
+                        <Link
+                            href={`/${locale}/news`}
+                            className="inline-flex text-sm font-medium text-slate-700 underline underline-offset-4 hover:text-slate-900"
+                        >
+                            {ui.backToList}
+                        </Link>
+                    </div>
                 </article>
 
                 <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
                     <div className="rounded-2xl border bg-white p-5">
-                        <h3 className="text-sm font-semibold text-slate-900">Latest news</h3>
+                        <h3 className="text-sm font-semibold text-slate-900">
+                            {ui.latestTitle}
+                        </h3>
 
                         <div className="mt-4 divide-y">
                             {latestNews.length ? (
@@ -460,23 +743,35 @@ export default async function NewsDetailPage({ params }: Props) {
                                         <p className="line-clamp-3 text-sm font-medium leading-6 text-slate-800">
                                             {item.title}
                                         </p>
-                                        <p className="mt-1 text-xs text-slate-500">{formatDate(item.date, locale)}</p>
+                                        <p className="mt-1 text-xs text-slate-500">
+                                            {formatDate(item.date, locale)}
+                                        </p>
                                     </Link>
                                 ))
                             ) : (
-                                <p className="py-3 text-sm text-slate-500">Yangiliklar topilmadi</p>
+                                <div className="py-3">
+                                    <p className="text-sm font-medium text-slate-800">
+                                        {ui.emptyTitle}
+                                    </p>
+                                    <p className="mt-1 text-sm text-slate-500">
+                                        {ui.emptyDesc}
+                                    </p>
+                                </div>
                             )}
                         </div>
                     </div>
 
                     <div className="overflow-hidden rounded-2xl border bg-gradient-to-br from-blue-900 to-blue-700 p-5 text-white">
-                        <p className="text-xs uppercase tracking-[0.2em] text-slate-300">Telegram</p>
+                        <p className="text-xs uppercase tracking-[0.2em] text-slate-300">
+                            Telegram
+                        </p>
 
-                        <h3 className="mt-2 text-xl font-semibold leading-tight">Kanalimizga qo‘shiling</h3>
+                        <h3 className="mt-2 text-xl font-semibold leading-tight">
+                            {ui.joinTelegramTitle}
+                        </h3>
 
                         <p className="mt-3 text-sm leading-6 text-slate-200">
-                            Eng so‘nggi yangiliklar, e’lonlar va foydali postlarni birinchi bo‘lib
-                            Telegram kanalimizda kuzating.
+                            {ui.joinTelegramDesc}
                         </p>
 
                         <a
@@ -485,7 +780,7 @@ export default async function NewsDetailPage({ params }: Props) {
                             rel="noreferrer"
                             className="mt-5 inline-flex rounded-xl bg-white px-4 py-2 text-sm font-medium text-slate-900 transition hover:bg-slate-100"
                         >
-                            Kanalga o‘tish
+                            {ui.joinTelegramCta}
                         </a>
                     </div>
                 </aside>
